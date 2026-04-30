@@ -1,0 +1,9 @@
+title: MRC-Computing.com
+description: Bienvenue sur ma page GitHub !
+theme: minima # Ou un autre thème comme 'jekyll-theme-cayman'
+remote_theme: pages-themes/minimal@v0.2.0
+
+# Informations sur l'auteur
+author:
+  name: Moez L'AGHA
+  email:contact@mtc-computing.com
