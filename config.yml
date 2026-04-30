@@ -1,9 +1,32 @@
-title: MRC-Computing.com
-description: Bienvenue sur ma page GitHub !
-theme: minima # Ou un autre thème comme 'jekyll-theme-cayman'
-remote_theme: pages-themes/minimal@v0.2.0
+name: Deploy Production Site
 
-# Informations sur l'auteur
-author:
-  name: Moez L'AGHA
-  email:contact@mtc-computing.com
+on:
+  push:
+    branches: ["main"]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps: deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.' # Déploie tout le contenu du dépôt
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
