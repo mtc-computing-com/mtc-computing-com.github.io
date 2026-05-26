@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio IT — Opérations Pilotées par le Prompt | MTC Computing</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Styles spécifiques pour mettre en valeur ton projet ce soir */
+    .portfolio-hero { padding: 5rem 0 3rem; background: #f8f9fa; border-bottom: 1px solid #e9ecef; }
+    .project-card { background: #fff; border: 1px solid #e9ecef; border-radius: 8px; padding: 2rem; margin-bottom: 3rem; box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
+    .project-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 1.5rem; }
+    @media (max-width: 768px) { .project-grid { grid-template-columns: 1fr; } }
+    .screenshot-placeholder { background: #f1f3f5; border: 1px dashed #ced4da; border-radius: 6px; display: flex; align-items: center; justify-content: center; min-height: 250px; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+    .screenshot-placeholder img { width: 100%; height: auto; display: block; }
+    .prompt-box { background: #1e1e1e; color: #f8f8f2; padding: 1rem; border-radius: 6px; font-family: monospace; font-size: 0.9rem; margin: 1rem 0; overflow-x: auto; }
+    .badge { display: inline-block; padding: 0.25rem 0.75rem; background: #e8f0fe; color: #1a73e8; border-radius: 50px; font-size: 0.85rem; font-weight: bold; margin-bottom: 0.5rem; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="assets/LOGO.png" alt="MTC Computing" style="height:114px;width:auto;" />
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="index.html#competences">Compétences</a></li>
+      <li><a href="index.html#experience">Parcours</a></li>
+      <li><a href="portfolio-it.html" class="active">Portfolio IT (IA)</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="portfolio-hero">
+  <div class="container">
+    <p class="section-label" style="color:var(--primary);">Cas Pratique & Innovation</p>
+    <h1 style="font-size: 2.5rem; margin-bottom: 1rem;">Opérations pilotées par le Prompt</h1>
+    <p class="hero-subtitle" style="max-width: 800px; margin: 0;">
+      Comment traduire des problématiques opérationnelles et de gouvernance d'infrastructure en requêtes exploitables par l'IA pour générer des outils de décision (Excel, Power BI, Power Platform).
+    </p>
+    <div style="margin-top: 1.5rem;">
+      <a href="https://github.com/Moez-FinTech" target="_blank" rel="noopener" class="btn btn-primary">Voir le dépôt GitHub →</a>
+    </div>
+  </div>
+</section>
+
+<section style="padding: 4rem 0;">
+  <div class="container">
+
+    <div class="project-card" style="background: var(--light); border-left: 4px solid var(--primary);">
+      <h3>💡 Ma vision du "Management du Savoir" augmenté par l'IA</h3>
+      <p style="margin-top: 0.5rem; line-height: 1.6;">
+        En tant que Coordinateur IT, ma valeur ajoutée n'est pas de coder des formules DAX ou des macros complexes pendant des heures, mais de savoir <strong>structurer le problème</strong>. Ce portfolio démontre une posture professionnelle honnête et moderne : j'utilise l'IA comme un accélérateur technique pour me concentrer exclusivement sur l'analyse des indicateurs (SLA), la prise de décision et la montée en compétences de mes équipes.
+      </p>
+    </div>
+
+    <div class="project-card">
+      <span class="badge">Cas Pratique 1</span>
+      <h2>Optimisation des SLA & Redistribution de Charge (Équipe de 8 techniciens)</h2>
+      
+      <div class="project-grid">
+        <div class="project-info">
+          <p><strong>Problématique :</strong> Une équipe fonctionnant en pool indifférencié, générant des goulots d'étranglement le lundi, un sureffectif le vendredi, et aucune visibilité sur les objectifs de résolution à <code style="background:#eee; padding:2px 4px;">t+3</code>.</p>
+          
+          <div class="prompt-box">
+            // Exemple de prompt de modélisation de charge<br>
+            "Agis en tant qu'expert ITSM. À partir d'un volume de 20 tickets L1/L2 par jour, structure une segmentation d'équipe en 3 pools distincts..."
+          </div>
+
+          <p><strong>Solution managériale appliquée :</strong> Organisation ciblée de l'équipe en 3 pools fonctionnels (Tickets, Interventions terrain, Amélioration continue) avec activation automatique d'un protocole de couverture réduite les jours de faible activité (jeudi/vendredi).</p>
+        </div>
+        
+        <div class="screenshot-placeholder">
+          <p style="color:#868e96; text-align:center; padding:1rem;">[Capture d'écran de ton rapport Power BI : Graphique des charges par jour / Taux de SLA]</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <span class="badge">Cas Pratique 2</span>
+      <h2>Matrice de Continuité d'Activité & Gouvernance des Absences</h2>
+      
+      <div class="project-grid">
+        <div class="screenshot-placeholder">
+          <p style="color:#868e96; text-align:center; padding:1rem;">[Capture d'écran de ta matrice de contingence Excel / flux Power Automate]</p>
+        </div>
+
+        <div class="project-info">
+          <p><strong>Problématique :</strong> Risque de désorganisation lors des absences imprévues. Éviter absolument que le Lead technique ne descende sur le terrain pour préserver son rôle de pivot d'escalade.</p>
+          
+          <p><strong>Solution de gouvernance :</strong> Modélisation de l'absence comme une variable probabiliste et intégration d'un rôle de "Technicien Volant" multisite à déclenchement automatique basé sur des seuils définis, soumis à approbation DSI.</p>
+          
+          <p><strong>Outils connectés :</strong> Power Platform pour l'automatisation des alertes d'absence et mise à jour en temps réel sur la vue d'effectifs de Power BI.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <a href="index.html" class="footer-logo">MTC<span>.</span>Computing</a>
+    <span>SIREN 820 341 568 · Organisme de formation NDA 7533164433</span>
+    <span>© 2025 MTC Computing</span>
+  </div>
+</footer>
+
+</body>
+</html>
