@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Articles & Projets — MTC Computing</title>
+  <meta name="description" content="Articles techniques, runbooks et projets open source publiés par Moez L'Agha — SAP FICO, Kubernetes, infrastructure, GED." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="assets/LOGO.png" alt="MTC Computing" style="height:114px;width:auto;" />
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html#about">Profil</a></li>
+      <li><a href="index.html#competences">Compétences</a></li>
+      <li><a href="index.html#experience">Réalisations</a></li>
+      <li><a href="index.html#content">YouTube</a></li>
+      <li><a href="articles.html" class="active">Articles</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section style="padding: var(--space-xl) 0 var(--space-md);">
+  <div class="container">
+    <p class="section-label">Publications & Projets</p>
+    <h1 class="section-title">Articles, Runbooks<br/>&amp; Projets techniques</h1>
+    <p style="color: var(--muted); font-size: 1rem; max-width: 560px; line-height: 1.8;">
+      Contenus techniques publiés sur GitHub Pages, LinkedIn et YouTube —
+      SAP FICO, Kubernetes, infrastructure souveraine, GED open source.
+    </p>
+  </div>
+</section>
+
+<section style="padding: 0 0 var(--space-xl);">
+  <div class="container">
+    <ul class="exp-list">
+
+      <!-- Projet GED -->
+      <li class="exp-item">
+        <div class="exp-date" style="padding-top:0.5rem;">
+          <span style="font-size:0.7rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--accent);">Projet</span><br/>
+          <span style="color:var(--muted); font-size:0.75rem;">2026 — en cours</span>
+        </div>
+        <div class="exp-body">
+          <div class="exp-body-title">
+            <a href="mtc-ged-projet.html" style="color:var(--fg); text-decoration:none;">
+              Projet GED SaaS Open Source — Alternative à OpenText
+            </a>
+          </div>
+          <div class="exp-body-company">Projet personnel · GitHub / MTC Computing</div>
+          <div class="exp-body-desc">
+            Déploiement d'une chaîne complète de gestion électronique de documents sur VMware + Kubernetes :
+            scan USB → OCR → extraction structurée Python/FastAPI → intégration M365 / Google Workspace.
+            Stack 100 % open source (Nextcloud Hub, Minikube, pdfplumber, Streamlit).
+          </div>
+          <div style="margin-top:0.75rem; display:flex; gap:0.5rem; flex-wrap:wrap;">
+            <span class="tag">Kubernetes</span>
+            <span class="tag">Nextcloud</span>
+            <span class="tag">FastAPI</span>
+            <span class="tag">VMware</span>
+            <span class="tag">Python</span>
+            <span class="tag">Graph API</span>
+          </div>
+          <a href="mtc-ged-projet.html" class="btn btn-outline" style="margin-top:1rem; display:inline-flex;">
+            Voir le projet →
+          </a>
+        </div>
+      </li>
+
+      <!-- Runbook Kubernetes -->
+      <li class="exp-item">
+        <div class="exp-date" style="padding-top:0.5rem;">
+          <span style="font-size:0.7rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--accent);">Runbook</span><br/>
+          <span style="color:var(--muted); font-size:0.75rem;">2026</span>
+        </div>
+        <div class="exp-body">
+          <div class="exp-body-title">
+            <a href="https://moez-fintech.github.io/K8s/runbook-K8s.html" target="_blank" rel="noopener" style="color:var(--fg); text-decoration:none;">
+              Kubernetes / MariaDB / phpMyAdmin — Runbook de déploiement complet
+            </a>
+          </div>
+          <div class="exp-body-company">GitHub Pages · Moez-FinTech</div>
+          <div class="exp-body-desc">
+            Déploiement pas-à-pas d'un cluster Minikube avec StatefulSet MariaDB et phpMyAdmin
+            sur Ubuntu. Correction des erreurs omises dans les livres et tutoriels officiels :
+            docker.io vs docker-ce, persistence des secrets après reboot, configuration YAML StatefulSet.
+          </div>
+          <div style="margin-top:0.75rem; display:flex; gap:0.5rem; flex-wrap:wrap;">
+            <span class="tag">Kubernetes</span>
+            <span class="tag">Minikube</span>
+            <span class="tag">MariaDB</span>
+            <span class="tag">Docker</span>
+            <span class="tag">Ubuntu</span>
+          </div>
+          <a href="https://moez-fintech.github.io/K8s/runbook-K8s.html" target="_blank" rel="noopener" class="btn btn-outline" style="margin-top:1rem; display:inline-flex;">
+            Lire le runbook →
+          </a>
+        </div>
+      </li>
+
+      <!-- Article LinkedIn O2C -->
+      <li class="exp-item">
+        <div class="exp-date" style="padding-top:0.5rem;">
+          <span style="font-size:0.7rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--accent);">Article</span><br/>
+          <span style="color:var(--muted); font-size:0.75rem;">LinkedIn</span>
+        </div>
+        <div class="exp-body">
+          <div class="exp-body-title">
+            SAP Order to Cash (O2C) — End-to-end cycle explained
+          </div>
+          <div class="exp-body-company">LinkedIn · MTC Computing</div>
+          <div class="exp-body-desc">
+            Décryptage du cycle O2C dans SAP FI-SD : de la commande client à l'encaissement,
+            avec les transactions clés, les points d'intégration FI-SD et les contrôles de clôture.
+            Article en anglais, orienté consultant et équipes finance.
+          </div>
+          <div style="margin-top:0.75rem; display:flex; gap:0.5rem; flex-wrap:wrap;">
+            <span class="tag">SAP FI-SD</span>
+            <span class="tag">O2C</span>
+            <span class="tag">S/4HANA</span>
+          </div>
+          <a href="https://www.linkedin.com/in/moez-l-agha-b020032b5" target="_blank" rel="noopener" class="btn btn-outline" style="margin-top:1rem; display:inline-flex;">
+            Voir sur LinkedIn →
+          </a>
+        </div>
+      </li>
+
+      <!-- Article LinkedIn SAP conformité -->
+      <li class="exp-item">
+        <div class="exp-date" style="padding-top:0.5rem;">
+          <span style="font-size:0.7rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--accent);">Article</span><br/>
+          <span style="color:var(--muted); font-size:0.75rem;">LinkedIn</span>
+        </div>
+        <div class="exp-body">
+          <div class="exp-body-title">
+            SAP et la conformité tiers — clients, fournisseurs, référentiels
+          </div>
+          <div class="exp-body-company">LinkedIn · MTC Computing</div>
+          <div class="exp-body-desc">
+            Analyse des points de contact entre SAP FI et les exigences de conformité tiers :
+            gestion des référentiels fournisseurs/clients, contrôles LCB-FT, et intégration
+            avec les outils de screening type World-Check One.
+          </div>
+          <div style="margin-top:0.75rem; display:flex; gap:0.5rem; flex-wrap:wrap;">
+            <span class="tag">SAP FI</span>
+            <span class="tag">LCB-FT</span>
+            <span class="tag">Conformité</span>
+            <span class="tag">World-Check</span>
+          </div>
+          <a href="https://www.linkedin.com/in/moez-l-agha-b020032b5" target="_blank" rel="noopener" class="btn btn-outline" style="margin-top:1rem; display:inline-flex;">
+            Voir sur LinkedIn →
+          </a>
+        </div>
+      </li>
+
+      <!-- GitHub SAP TVA -->
+      <li class="exp-item">
+        <div class="exp-date" style="padding-top:0.5rem;">
+          <span style="font-size:0.7rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--accent);">GitHub</span><br/>
+          <span style="color:var(--muted); font-size:0.75rem;">Portfolio</span>
+        </div>
+        <div class="exp-body">
+          <div class="exp-body-title">
+            <a href="https://github.com/Moez-FinTech" target="_blank" rel="noopener" style="color:var(--fg); text-decoration:none;">
+              Portfolio technique — SAP TVA, processus métiers, virtualisation
+            </a>
+          </div>
+          <div class="exp-body-company">GitHub · mtc-computing-com / Moez-FinTech</div>
+          <div class="exp-body-desc">
+            Dépôts documentaires couvrant : cycle TVA SAP (FTXP/SM35/OB40/transport),
+            processus P2P/O2C/R2R/D2P/H2R, comparatif VMware/Proxmox/Hyper-V,
+            administration SharePoint Online et Microsoft Graph API.
+          </div>
+          <div style="margin-top:0.75rem; display:flex; gap:0.5rem; flex-wrap:wrap;">
+            <span class="tag">SAP TVA</span>
+            <span class="tag">P2P · O2C · R2R</span>
+            <span class="tag">Proxmox</span>
+            <span class="tag">SharePoint</span>
+            <span class="tag">Graph API</span>
+          </div>
+          <a href="https://github.com/Moez-FinTech" target="_blank" rel="noopener" class="btn btn-outline" style="margin-top:1rem; display:inline-flex;">
+            Voir GitHub →
+          </a>
+        </div>
+      </li>
+
+    </ul>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <a href="index.html" class="footer-logo">MTC<span>.</span>Computing</a>
+    <span>SIREN 820 341 548 · Organisme de formation NDA 7533164433</span>
+    <span>© 2025 MTC Computing</span>
+  </div>
+</footer>
+
+</body>
+</html>
