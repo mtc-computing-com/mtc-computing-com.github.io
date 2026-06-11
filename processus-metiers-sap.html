@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MTC Computing – Processus Métiers SAP : P2P · O2C · R2R · D2P · H2R</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:        #0d1117;
+    --bg2:       #161b22;
+    --bg3:       #21262d;
+    --border:    #30363d;
+    --accent:    #58a6ff;
+    --accent2:   #3fb950;
+    --accent3:   #f78166;
+    --amber:     #e3b341;
+    --purple:    #bc8cff;
+    --text:      #e6edf3;
+    --muted:     #8b949e;
+    --tag-bg:    #1f2d3d;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  /* ── TOP BAR ── */
+  .topbar {
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .topbar .brand {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--accent);
+    letter-spacing: .04em;
+  }
+  .topbar .brand span { color: var(--muted); }
+  .topbar .nav-links {
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+  }
+  .topbar .nav-links a {
+    font-size: 12px;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    transition: color .2s;
+  }
+  .topbar .nav-links a:hover { color: var(--text); }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 56px 32px 40px;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+  .hero .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .hero h1 {
+    font-size: clamp(22px, 4vw, 36px);
+    font-weight: 600;
+    line-height: 1.25;
+    color: var(--text);
+    margin-bottom: 20px;
+  }
+  .hero h1 em {
+    font-style: normal;
+    color: var(--accent);
+  }
+  .hero p {
+    color: var(--muted);
+    max-width: 680px;
+    font-size: 15px;
+    margin-bottom: 8px;
+  }
+
+  /* ── STACK TAGS ── */
+  .stack {
+    padding: 0 32px 48px;
+    max-width: 960px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    background: var(--tag-bg);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 4px 10px;
+    border-radius: 4px;
+  }
+  .tag.hi  { border-color: var(--accent);  color: var(--accent); }
+  .tag.grn { border-color: var(--accent2); color: var(--accent2); }
+  .tag.amb { border-color: var(--amber);   color: var(--amber); }
+  .tag.pur { border-color: var(--purple);  color: var(--purple); }
+
+  /* ── SYNTHESE TABLE ── */
+  .synthese-wrap {
+    max-width: 960px;
+    margin: 0 auto 48px;
+    padding: 0 32px;
+  }
+  .synthese-wrap h2 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--accent);
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  /* ── TABLES ── */
+  .tbl-wrap { overflow-x: auto; margin-bottom: 24px; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  th {
+    background: var(--bg3);
+    color: var(--muted);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    padding: 10px 14px;
+    border: 1px solid var(--border);
+    text-align: left;
+    white-space: nowrap;
+  }
+  td {
+    padding: 10px 14px;
+    border: 1px solid var(--border);
+    color: var(--text);
+    vertical-align: top;
+    line-height: 1.6;
+  }
+  tr:nth-child(even) td { background: #0f1319; }
+  td code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--accent);
+    background: var(--bg3);
+    padding: 1px 5px;
+    border-radius: 3px;
+  }
+  td strong { color: var(--text); }
+  td em { color: var(--amber); font-style: normal; }
+
+  /* ── DIVIDER ── */
+  .divider {
+    max-width: 960px;
+    margin: 0 auto 40px;
+    padding: 0 32px;
+  }
+  .divider hr { border: none; border-top: 1px solid var(--border); }
+
+  /* ── PROCESSUS SECTIONS ── */
+  .processus {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 32px 80px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .proc-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: border-color .2s;
+  }
+  .proc-card:hover { border-color: #444d56; }
+
+  .proc-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 24px 28px;
+    cursor: pointer;
+  }
+
+  .proc-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 4px 8px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .proc-meta { flex: 1; }
+
+  .proc-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+  .proc-title span {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--accent);
+    font-size: 14px;
+  }
+
+  .proc-subtitle {
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  .proc-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 20px;
+    flex-shrink: 0;
+  }
+  .badge-fi   { background: #1a2035; border: 1px solid var(--accent);  color: var(--accent); }
+  .badge-co   { background: #1a2a1a; border: 1px solid var(--accent2); color: var(--accent2); }
+  .badge-rh   { background: #2a1a2a; border: 1px solid var(--purple);  color: var(--purple); }
+  .badge-pp   { background: #2a2010; border: 1px solid var(--amber);   color: var(--amber); }
+
+  /* ── PROC BODY ── */
+  .proc-body {
+    border-top: 1px solid var(--border);
+    padding: 28px 28px;
+    display: none;
+  }
+  .proc-body.open { display: block; }
+
+  .proc-body h3 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    margin: 24px 0 14px;
+  }
+  .proc-body h3:first-child { margin-top: 0; }
+
+  .proc-body p {
+    font-size: 14px;
+    color: var(--muted);
+    margin-bottom: 16px;
+    max-width: 780px;
+  }
+
+  /* ── ALERTE / KPI BOX ── */
+  .kpi-box {
+    background: var(--bg3);
+    border-left: 3px solid var(--accent2);
+    border-radius: 0 6px 6px 0;
+    padding: 14px 18px;
+    margin: 20px 0;
+    font-size: 13px;
+    color: var(--text);
+  }
+  .kpi-box.amber { border-left-color: var(--amber); }
+  .kpi-box.red   { border-left-color: var(--accent3); }
+  .kpi-box strong { color: var(--accent2); }
+  .kpi-box.amber strong { color: var(--amber); }
+  .kpi-box.red   strong { color: var(--accent3); }
+
+  /* ── ARROW ── */
+  .arrow {
+    font-size: 12px;
+    color: var(--muted);
+    transition: transform .2s;
+    flex-shrink: 0;
+    margin-top: 4px;
+  }
+  .arrow.open { transform: rotate(90deg); }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 28px 32px;
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: #3d4f5c;
+  }
+  footer a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+  footer span { color: var(--muted); }
+
+  @media (max-width: 600px) {
+    .topbar, .hero, .stack, .divider, .processus, .synthese-wrap { padding-left: 16px; padding-right: 16px; }
+    .proc-header { padding: 18px 16px; }
+    .proc-body { padding: 18px 16px; }
+    .topbar .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="brand">MTC Computing<span> / </span>Processus Métiers SAP</div>
+  <ul class="nav-links">
+    <li><a href="index.html">Accueil</a></li>
+    <li><a href="articles.html">Articles</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="eyebrow">Référence FICO · S/4HANA &amp; ECC · MTC Computing</div>
+  <h1>Processus Métiers SAP<br/><em>P2P · O2C · R2R · D2P · H2R</em></h1>
+  <p>Tables, mécanismes et contrôles — référence Key User &amp; consultant FICO.</p>
+  <p>Chaque processus couvre le mécanisme étape par étape, les tables SAP alimentées, les comptes sentinelles et les KPI de pilotage.</p>
+</div>
+
+<!-- TAGS -->
+<div class="stack">
+  <span class="tag hi">P2P — Procure to Pay</span>
+  <span class="tag hi">O2C — Order to Cash</span>
+  <span class="tag hi">R2R — Record to Report</span>
+  <span class="tag amb">D2P — Design to Produce</span>
+  <span class="tag pur">H2R — Hire to Retire</span>
+  <span class="tag">BKPF / BSEG</span>
+  <span class="tag">ACDOCA</span>
+  <span class="tag">OB52</span>
+  <span class="tag">F110</span>
+  <span class="tag">AFAB</span>
+  <span class="tag">MR11</span>
+  <span class="tag">S/4HANA</span>
+  <span class="tag">ECC6</span>
+</div>
+
+<!-- SYNTHESE -->
+<div class="synthese-wrap">
+  <h2>Tableau de synthèse des 5 processus</h2>
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Acronyme</th>
+          <th>Traduction réelle</th>
+          <th>Flux financier</th>
+          <th>KPI juge de paix</th>
+          <th>Compte / Table sentinelle</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>P2P</strong></td>
+          <td>Procure-to-Pay</td>
+          <td>Sortie d'argent</td>
+          <td>Solde <code>408100</code></td>
+          <td><code>EKKO/EKPO</code> · <code>RBKP/RSEG</code> · <code>BKPF/BSEG</code></td>
+        </tr>
+        <tr>
+          <td><strong>O2C</strong></td>
+          <td>Order-to-Cash</td>
+          <td>Entrée d'argent</td>
+          <td>DSO (jours)</td>
+          <td><code>VBAK/VBAP</code> · <code>VBRK/VBRP</code> · <code>BSID</code></td>
+        </tr>
+        <tr>
+          <td><strong>R2R</strong></td>
+          <td>Record-to-Report</td>
+          <td>Clôture / Bilan</td>
+          <td>Fast Close (jours)</td>
+          <td><code>ACDOCA</code> · <code>BKPF/BSEG</code> · <code>T001B</code></td>
+        </tr>
+        <tr>
+          <td><strong>D2P</strong></td>
+          <td>Design-to-Produce</td>
+          <td>Fabrication</td>
+          <td>Écart coût de revient</td>
+          <td><code>MAST</code> · <code>AUFK</code> · <code>COSS/COSP</code></td>
+        </tr>
+        <tr>
+          <td><strong>H2R</strong></td>
+          <td>Hire-to-Retire</td>
+          <td>Gestion humain</td>
+          <td>Justesse provision CP</td>
+          <td><code>PA0001</code> · <code>RT</code> · Interface paie → FI <code>641xxx/431xxx</code></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="divider"><hr></div>
+
+<!-- PROCESSUS -->
+<div class="processus">
+
+  <!-- P2P -->
+  <div class="proc-card">
+    <div class="proc-header" onclick="toggle(this)">
+      <div class="proc-num">01</div>
+      <div class="proc-meta">
+        <div class="proc-title"><span>P2P</span> — Procure-to-Pay</div>
+        <div class="proc-subtitle">Dépenser — de l'expression du besoin au décaissement bancaire</div>
+      </div>
+      <div class="proc-badge badge-fi">FI · MM</div>
+      <div class="arrow">▶</div>
+    </div>
+    <div class="proc-body open">
+
+      <h3>Mécanisme étape par étape</h3>
+      <div class="tbl-wrap">
+        <table>
+          <thead>
+            <tr><th>Étape</th><th>Action</th><th>T-Code / Fiori</th><th>Table alimentée</th><th>Impact comptable</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td>Demande d'Achat</td><td><code>ME51N</code></td><td><code>EBAN</code></td><td>Aucun — document interne</td></tr>
+            <tr><td>2</td><td>Commande d'Achat (PO)</td><td><code>ME21N</code></td><td><code>EKKO</code> / <code>EKPO</code></td><td>Engagement juridique — pas d'écriture FI</td></tr>
+            <tr><td>3</td><td>Réception marchandise</td><td><code>MIGO</code></td><td><code>MKPF/MSEG</code></td><td>Débit 3xxxxx ou 6xxxxx │ Crédit <em>408100</em></td></tr>
+            <tr><td>4</td><td>Saisie facture fournisseur</td><td><code>MIRO</code></td><td><code>RBKP/RSEG</code></td><td>Débit 408100 + 44566 │ Crédit 401xxx</td></tr>
+            <tr><td>5</td><td>Blocage R si écart</td><td><code>MRBR</code></td><td><code>RBKP</code> (statut)</td><td>Pièce comptabilisée, paiement suspendu</td></tr>
+            <tr><td>6</td><td>Paiement fournisseur</td><td><code>F110</code> / <code>F-53</code></td><td><code>REGUH/REGUP</code></td><td>Débit 401xxx │ Crédit 512xxx (banque)</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Tables SAP alimentées — P2P</h3>
+      <div class="tbl-wrap">
+        <table>
+          <thead>
+            <tr><th>Table SAP</th><th>Nom fonctionnel</th><th>Contenu</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>EBAN</code></td><td>Demande d'Achat</td><td>Chaque ligne de DA : article, quantité, imputation, statut approbation</td></tr>
+            <tr><td><code>EKKO / EKPO</code></td><td>En-tête / Postes PO</td><td>PO : fournisseur, société, date, conditions de paiement</td></tr>
+            <tr><td><code>MKPF / MSEG</code></td><td>Document matériel MIGO</td><td>Mouvement de stock : type (101 entrée, 102 retour), quantité, valeur</td></tr>
+            <tr><td><code>RBKP / RSEG</code></td><td>Document MIRO</td><td>En-tête et postes facture LIV avant transfert FI</td></tr>
+            <tr><td><code>BKPF / BSEG</code></td><td>Pièce comptable FI</td><td>Pièce FI générée par MIRO et le paiement — source de vérité comptable</td></tr>
+            <tr><td><code>ACDOCA</code></td><td>Universal Journal S/4HANA</td><td>Remplace BSEG + CO + ML — chaque écriture P2P tracée en une ligne unique</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Compte sentinelle 408100 — GR/IR Clearing</h3>
+      <p>Le compte 408100 est l'intermédiaire entre la réception physique (MIGO) et la réception administrative (MIRO). Son solde est le baromètre de la santé du P2P.</p>
+      <div class="tbl-wrap">
+        <table>
+          <thead>
+            <tr><th>Situation</th><th>Solde 408100</th><th>Diagnostic</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>MIGO faite, MIRO pas encore</td><td>Créditeur</td><td>Normal en cours de période — à résorber avant clôture</td></tr>
+            <tr><td>MIRO faite, MIGO pas encore</td><td>Débiteur</td><td><em>Alerte</em> : facture reçue sans marchandise — vérification urgente</td></tr>
+            <tr><td>MIGO + MIRO correspondantes</td><td>Solde zéro</td><td>P2P propre — cycle terminé</td></tr>
+            <tr><td>Solde chroniquement gonflé</td><td>Non nul en fin de période</td><td><em>P2P cassé</em> — tracer via MR11 ou FBL3N sur 408100</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="kpi-box amber">
+        <strong>KPI P2P :</strong> Solde du compte 408100 en fin de période. Un compte GR/IR non nul en clôture = provisions obligatoires ou anomalie de flux à traiter avant bilan.
+      </div>
+
+    </div>
+  </div>
+
+  <!-- O2C -->
+  <div class="proc-card">
+    <div class="proc-header" onclick="toggle(this)">
+      <div class="proc-num">02</div>
+      <div class="proc-meta">
+        <div class="proc-title"><span>O2C</span> — Order-to-Cash</div>
+        <div class="proc-subtitle">Vendre et encaisser — du devis au paiement client</div>
+      </div>
+      <div class="proc-badge badge-fi">FI · SD</div>
+      <div class="arrow">▶</div>
+    </div>
+    <div class="proc-body">
+
+      <h3>Mécanisme étape par étape</h3>
+      <div class="tbl-wrap">
+        <table>
+          <thead>
+            <tr><th>Étape</th><th>Action</th><th>T-Code / Fiori</th><th>Table alimentée</th><th>Impact comptable</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td>Devis (Q2C)</td><td><code>VA21</code></td><td><code>VBAK/VBAP</code></td><td>Aucun — offre commerciale</td></tr>
+            <tr><td>2</td><td>Commande Client</td><td><code>VA01</code></td><td><code>VBAK/VBAP</code></td><td>Blocage crédit si encours &gt; plafond FSCM</td></tr>
+            <tr><td>3</td><td>Livraison</td><td><code>VL01N</code></td><td><code>LIKP/LIPS</code></td><td>Sortie stock : Débit 607xxx │ Crédit 3xxxxx</td></tr>
+            <tr><td>4</td><td>Facturation SD</td><td><code>VF01</code></td><td><code>VBRK/VBRP</code></td><td>Débit 411xxx │ Crédit 706xxx + 44571</td></tr>
+            <tr><td>5</td><td>Relance (Dunning)</td><td><code>F150</code></td><td><code>MHNK</code></td><td>Aucun comptable — courrier généré</td></tr>
+            <tr><td>6</td><td>Encaissement client</td><td><code>F-28</code></td><td><code>BKPF/BSEG</code></td><td>Débit 512xxx │ Crédit 411xxx — PNS → PS</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Hiérarchie des types de pièces — RV vs DR</h3>
+      <div class="tbl-wrap">
+        <table>
+          <thead>
+            <tr><th>Type</th><th>Libellé</th><th>Origine</th><th>Traçabilité / Impact</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>RV</code></td><td>Facture SD</td><td>VF01 depuis commande SD</td><td>Lien traçable VBAK → VBRK → BKPF. Audit complet. VKOA pilote les comptes.</td></tr>
+            <tr><td><code>DR</code></td><td>Facture FI directe</td><td>FB70 — sans commande SD</td><td>Pièce FI uniquement. Traçabilité réduite — à utiliser uniquement sans SD.</td></tr>
+            <tr><td><code>DZ</code></td><td>Paiement entrant</td><td>F-28 / F110</td><td>Pièce de compensation. Lettrage AR ouvert. Transition PNS → PS.</td></tr>
+            <tr><td><code>DA</code></td><td>Avoir client FI</td><td>FB75</td><td>Pièce FI uniquement. Réduit la créance sans référence SD.</td></tr>
+            <tr><td><code>RE</code></td><td>Avoir SD (retour)</td><td>VF01 type RE</td><td>Lien VBRK type RE → BKPF. Traçabilité complète retour logistique.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="kpi-box red">
+        <strong>Expert Key User O2C :</strong> Toujours privilégier le flux RV (VF01 depuis commande SD) plutôt que DR (FB70 direct). Une facture DR ne peut pas être rapprochée à une commande SD — elle casse la chaîne de valeur du O2C.
+      </div>
+      <div class="kpi-box amber">
+        <strong>KPI O2C :</strong> DSO = (Encours clients / CA) × 365. Un DSO élevé = créances AR ouvertes trop longtemps. Piloter via <code>FBL5N</code> (aging AR).
+      </div>
+
+    </div>
+  </div>
+
+  <!-- R2R -->
+  <div class="proc-card">
+    <div class="proc-header" onclick="toggle(this)">
+      <div class="proc-num">03</div>
+      <div class="proc-meta">
+        <div class="proc-title"><span>R2R</span> — Record-to-Report</div>
+        <div class="proc-subtitle">Clôture et bilan — processus transversal qui consolide tous les autres</div>
+      </div>
+      <div class="proc-badge badge-co">FI · CO · AA</div>
+      <div class="arrow">▶</div>
+    </div>
+    <div class="proc-body">
+
+      <h3>Mécanisme étape par étape</h3>
+      <div class="tbl-wrap">
+        <table>
+          <thead>
+            <tr><th>Étape</th><th>Action</th><th>T-Code</th><th>Table</th><th>Impact</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td>Contrôle des périodes</td><td><code>OB52</code></td><td><code>T001B</code></td><td>Ouvre/ferme les périodes par société et type de compte</td></tr>
+            <tr><td>2</td><td>Cutoff P2P — nettoyage GR/IR</td><td><code>MR11</code></td><td><code>BKPF/BSEG</code></td><td>Régularise les écarts 408100 en fin de période</td></tr>
+            <tr><td>3</td><td>Lettrage / Clearing</td><td><code>F-44 / F-32 / F.13</code></td><td><code>BSAS/BSAK/BSAD</code></td><td>Transformation PNS → PS</td></tr>
+            <tr><td>4</td><td>Provisions / Écritures OD</td><td><code>FB50 / FB01</code></td><td><code>BKPF/BSEG / ACDOCA</code></td><td>Charges à payer, produits à recevoir</td></tr>
+            <tr><td>5</td><td>Valorisation devises</td><td><code>FAGL_FC_VAL</code></td><td><code>ACDOCA</code></td><td>Ajustement postes devises étrangères au cours de clôture</td></tr>
+            <tr><td>6</td><td>Amortissements FI-AA</td><td><code>AFAB</code></td><td><code>ANEK / ANEA</code></td><td>Débit 681xxx │ Crédit 281xxx</td></tr>
+            <tr><td>7</td><td>Réconciliation FI-AA</td><td><code>S_ALR_87011963 + FAGLB03</code></td><td><code>ANLC / FAGLFLEXT</code></td><td>Balance immos = comptes collectifs classe 2 GL au centime</td></tr>
+            <tr><td>8</td><td>Clôture analytique CO</td><td><code>KSU5 / KSV5</code></td><td><code>COSS/COSP</code></td><td>Distribution charges entre centres de coûts et CO-PA</td></tr>
+            <tr><td>9</td><td>Balance de vérification</td><td><code>FAGLB03</code></td><td><code>FAGLFLEXT</code></td><td>Réconciliation GL vs balances auxiliaires AP/AR</td></tr>
+            <tr><td>10</td><td>Fermeture de période</td><td><code>OB52</code></td><td><code>T001B</code></td><td>Aucune écriture supplémentaire possible pour les users standard</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>OB52 — La Porte Principale et la Porte Dérobée</h3>
+      <div class="tbl-wrap">
+        <table>
+          <thead>
+            <tr><th></th><th>Période 1 — Porte principale</th><th>Période 2 — Porte dérobée</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>Définition</strong></td><td>Période ouverte pour TOUS les utilisateurs. Mois courant de travail.</td><td>Période résiduelle réservée aux Key Users via groupe d'autorisation.</td></tr>
+            <tr><td><strong>Exemple (début mai)</strong></td><td>Période 1 = 05/2026 — le business saisit ses factures de mai.</td><td>Période 2 = 04/2026 — l'équipe finance finalise les dotations d'avril.</td></tr>
+            <tr><td><strong>Risque si mal configuré</strong></td><td>Aucun si limité au mois courant.</td><td><em>Si avril reste sans groupe d'autorisation : n'importe quel user peut passer une écriture en avril — bilan en cours de révision compromis.</em></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Variante K4 vs K0</h3>
+      <p><strong>K4 (standard) :</strong> période comptable = mois calendaire. Période 1 = janvier.</p>
+      <p><strong>K0 (exercice décalé) :</strong> exemple exercice 01/04 au 31/03. Période 1 = avril. Un Key User qui lit "Période 3" dans OB52 doit savoir si c'est juin (K0) ou mars (K4).</p>
+      <div class="kpi-box red">
+        <strong>Règle pratique :</strong> Toujours vérifier le variant d'exercice (<code>OB29 / OB37</code>) avant d'intervenir sur OB52 dans un nouveau client. Le variant K4 est le standard France. Tout autre variant nécessite de recalculer le numéro de période.
+      </div>
+
+      <h3>Groupes d'autorisation OB52 — Séparation des tâches</h3>
+      <div class="tbl-wrap">
+        <table>
+          <thead>
+            <tr><th>Profil</th><th>Période 1</th><th>Période 2</th><th>Paramètre OB52</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>User standard (saisie métier)</td><td>Mai 2026 : ouvert</td><td>Avril 2026 : <em>FERMÉ</em></td><td>Groupe autorisation = vide</td></tr>
+            <tr><td>Key User / Comptable clôture</td><td>Mai 2026 : ouvert</td><td>Avril 2026 : ouvert — OD, dotations, provisions</td><td>Groupe = <code>CLOSE_KU</code></td></tr>
+            <tr><td>DAF / Admin SAP</td><td>Mai 2026 : ouvert</td><td>Peut rouvrir via OB52 directement</td><td>Objet <code>F_BKPF_BUP</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Cutoff P2P / R2R — MR11 et provision 408100</h3>
+      <div class="tbl-wrap">
+        <table>
+          <thead>
+            <tr><th>Situation 408100</th><th>Action MR11</th><th>Écriture générée</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>MIGO faite, MIRO en attente</td><td>Provision automatique</td><td>Débit 6xxxxx │ Crédit 408100</td></tr>
+            <tr><td>MIRO faite, MIGO jamais reçue</td><td>Alerte manuelle</td><td>Anomalie contractuelle — annuler via <code>MR8M</code></td></tr>
+            <tr><td>Résidus anciens (&gt; 3 mois)</td><td>MR11 force la régularisation</td><td>Écriture sur compte charge ou produit selon le sens</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="kpi-box amber">
+        <strong>Bonne pratique cutoff :</strong> Lancer MR11 systématiquement à J-2 avant la fermeture de période. Un 408100 non nettoyé s'accumule : 50 € en janvier deviennent 600 € en décembre — toxique en audit si non justifié.
+      </div>
+
+      <h3>Réconciliation FI-AA — Au centime près</h3>
+      <div class="tbl-wrap">
+        <table>
+          <thead>
+            <tr><th>Outil</th><th>Ce qu'il affiche</th><th>Source</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>S_ALR_87011963</code></td><td>Balance des immobilisations : valeur brute, amortissements cumulés, VNC</td><td>FI-AA : <code>ANLC / ANEA</code></td></tr>
+            <tr><td><code>FAGLB03</code></td><td>Soldes comptes G/L classe 2 : 211xxx, 213xxx, 281xxx</td><td>GL : <code>FAGLFLEXT / ACDOCA</code></td></tr>
+            <tr><td><code>AO90</code></td><td>Mapping classes d'immo → comptes G/L</td><td>Customizing SPRO</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="kpi-box red">
+        <strong>Écart FI-AA / GL :</strong> (1) Écriture directe sur classe 2 via FB50 → retrouver dans FBL3N et contre-passer. (2) AO90 mal paramétré → corriger le mapping et relancer AFAB. S_ALR_87011963 = FAGLB03 est non-négociable avant signature du bilan.
+      </div>
+
+      <h3>ACDOCA — Le Universal Journal S/4HANA</h3>
+      <div class="tbl-wrap">
+        <table>
+          <thead>
+            <tr><th>Dimension</th><th>ECC (table source)</th><th>S/4HANA ACDOCA</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Écriture FI</td><td><code>BKPF + BSEG</code></td><td>Une ligne ACDOCA — champs RBUKRS, RACCT, HSL</td></tr>
+            <tr><td>Analytique CO</td><td><code>COSP + COSS</code></td><td>Même ligne — champs RCNTR (centre coût), PRCTR (centre profit)</td></tr>
+            <tr><td>Valorisation ML</td><td><code>MLCD</code> séparé</td><td>Intégré dans ACDOCA — pas de réconciliation FI/CO nécessaire</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="kpi-box">
+        <strong>KPI R2R :</strong> Fast Close — objectif J+3 à J+5 après fin de période. Trois actions critiques : (1) MR11 nettoyé, (2) S_ALR_87011963 = FAGLB03 validé, (3) balances AP/AR réconciliées avec FAGLB03.
+      </div>
+
+    </div>
+  </div>
+
+  <!-- D2P -->
+  <div class="proc-card">
+    <div class="proc-header" onclick="toggle(this)">
+      <div class="proc-num">04</div>
+      <div class="proc-meta">
+        <div class="proc-title"><span>D2P</span> — Design-to-Produce</div>
+        <div class="proc-subtitle">Fabriquer — de la nomenclature au solde de l'ordre de fabrication</div>
+      </div>
+      <div class="proc-badge badge-pp">CO · PP</div>
+      <div class="arrow">▶</div>
+    </div>
+    <div class="proc-body">
+
+      <h3>Mécanisme étape par étape</h3>
+      <div class="tbl-wrap">
+        <table>
+          <thead>
+            <tr><th>Étape</th><th>Action</th><th>T-Code</th><th>Table</th><th>Impact comptable</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td>Nomenclature (BOM)</td><td><code>CS01 / CS03</code></td><td><code>MAST / STPO</code></td><td>Aucun — structure théorique</td></tr>
+            <tr><td>2</td><td>Gamme de fabrication</td><td><code>CA01</code></td><td><code>CRHD / PLPO</code></td><td>Aucun — temps et ressources théoriques</td></tr>
+            <tr><td>3</td><td>Calcul du coût standard</td><td><code>CK11N + CK24</code></td><td><code>CKIS / MBEW</code></td><td>Prix standard (type S) affecté sur la fiche article</td></tr>
+            <tr><td>4</td><td>Ordre de Fabrication (OF)</td><td><code>CO01</code></td><td><code>AUFK / AFPO</code></td><td>Engagement : prévision des coûts de l'ordre</td></tr>
+            <tr><td>5</td><td>Consommation composants</td><td><code>MIGO mv. 261</code></td><td><code>MSEG / COEP</code></td><td>Débit compte coût OF │ Crédit stock composants</td></tr>
+            <tr><td>6</td><td>Entrée en stock PF</td><td><code>MIGO mv. 101</code></td><td><code>MSEG / MBEW</code></td><td>Débit 3xxxxx stock PF │ Crédit compte OF</td></tr>
+            <tr><td>7</td><td>Solde OF / Écarts CO-PC</td><td><code>KO88 / CO88</code></td><td><code>COSS / COSP</code></td><td>Écart = coût réel - coût standard → 635xxx</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Analyse des écarts — juge de paix D2P</h3>
+      <div class="tbl-wrap">
+        <table>
+          <thead>
+            <tr><th>Type d'écart</th><th>Cause</th><th>Compte PCG</th><th>Action Key User</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Écart quantité</td><td>Plus de matière consommée que la BOM (ex : 10kg prévu, 12kg réel)</td><td><code>635100</code></td><td>Revoir la BOM ou investiguer les rebuts</td></tr>
+            <tr><td>Écart prix</td><td>Matière achetée à un prix différent du standard (→ PPV P2P)</td><td><code>635200</code></td><td>Revoir le prix standard ou la négociation achat</td></tr>
+            <tr><td>Écart temps</td><td>Temps opératoire réel ≠ gamme théorique</td><td><code>635300</code></td><td>Revoir la gamme ou optimiser le process</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="kpi-box amber">
+        <strong>KPI D2P :</strong> Écart sur coût de revient = (Coût réel OF - Coût standard) / Coût standard × 100. Un écart positif récurrent = BOM obsolète ou dérive des prix d'achat. Tables : <code>COSS</code> vs <code>COSP</code> via <code>S_ALR_87013127</code>.
+      </div>
+
+    </div>
+  </div>
+
+  <!-- H2R -->
+  <div class="proc-card">
+    <div class="proc-header" onclick="toggle(this)">
+      <div class="proc-num">05</div>
+      <div class="proc-meta">
+        <div class="proc-title"><span>H2R</span> — Hire-to-Retire</div>
+        <div class="proc-subtitle">Gérer l'humain — du recrutement à la retraite, interface paie → FI</div>
+      </div>
+      <div class="proc-badge badge-rh">HCM · FI</div>
+      <div class="arrow">▶</div>
+    </div>
+    <div class="proc-body">
+
+      <h3>Mécanisme étape par étape</h3>
+      <div class="tbl-wrap">
+        <table>
+          <thead>
+            <tr><th>Étape</th><th>Action</th><th>T-Code</th><th>Table</th><th>Impact comptable</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td>Recrutement</td><td><code>PA40</code></td><td><code>PA0001</code></td><td>Aucun — création dossier RH</td></tr>
+            <tr><td>2</td><td>Gestion des temps</td><td><code>CAT2 / PT60</code></td><td><code>CATSDB / PTEX2000</code></td><td>Base de calcul paie (heures, absences, congés)</td></tr>
+            <tr><td>3</td><td>Calcul de la paie</td><td><code>PC00_M99_CALC</code></td><td><code>RT / PC261</code></td><td>Calcul brut, net, cotisations — pas encore en FI</td></tr>
+            <tr><td>4</td><td>Transfert paie → FI</td><td><code>PC00_M99_CIPE</code></td><td><code>BKPF/BSEG / ACDOCA</code></td><td>Débit 641xxx │ Crédit 431xxx + 421xxx</td></tr>
+            <tr><td>5</td><td>Paiement salaires</td><td><code>F110</code></td><td><code>REGUH/REGUP</code></td><td>Débit 421xxx │ Crédit 512xxx (banque)</td></tr>
+            <tr><td>6</td><td>Départ / Retraite</td><td><code>PA30</code></td><td><code>PA0000 / PA0019</code></td><td>Provisions congés payés, précomptes solde de tout compte</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Interface Paie → FI — Point de vigilance FICO</h3>
+      <div class="tbl-wrap">
+        <table>
+          <thead>
+            <tr><th>Élément de paie</th><th>Compte G/L (PCG FR)</th><th>Type</th><th>Contrôle Key User</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Salaires bruts</td><td><code>641100</code></td><td>Charge P&amp;L</td><td>Débit 641xxx = masse salariale brute</td></tr>
+            <tr><td>Cotisations patronales</td><td><code>645xxx</code></td><td>Charge P&amp;L</td><td>Vérifier cohérence avec DSN</td></tr>
+            <tr><td>Cotisations à payer (URSSAF, retraite)</td><td><code>431xxx</code></td><td>Bilan passif</td><td>PNS à solder à la date d'échéance URSSAF</td></tr>
+            <tr><td>Net à payer salariés</td><td><code>421xxx</code></td><td>Bilan passif</td><td>PNS soldé le jour du virement F110</td></tr>
+            <tr><td>Provision congés payés</td><td><code>641200 / 428100</code></td><td>Charge / Bilan passif</td><td>KPI H2R : justesse provision CP en clôture</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="kpi-box amber">
+        <strong>KPI H2R :</strong> Justesse de la provision pour congés payés (<code>428100</code>). En clôture annuelle, ce compte doit refléter exactement les jours CP acquis non pris × salaire journalier. Un écart &gt; 5% entre provision comptabilisée et calcul RH est une anomalie à justifier pour le commissaire aux comptes.
+      </div>
+
+    </div>
+  </div>
+
+</div><!-- /processus -->
+
+<!-- FOOTER -->
+<footer>
+  <span>MTC Computing</span> · SIREN 820 341 548 · Bordeaux · 2026 —
+  Référence FICO S/4HANA | PCG France (CAFR) ·
+  <a href="articles.html">← Retour aux articles</a>
+</footer>
+
+<script>
+  function toggle(header) {
+    const body  = header.nextElementSibling;
+    const arrow = header.querySelector('.arrow');
+    const isOpen = body.classList.contains('open');
+    // Fermer tous les autres
+    document.querySelectorAll('.proc-body').forEach(b => b.classList.remove('open'));
+    document.querySelectorAll('.arrow').forEach(a => a.classList.remove('open'));
+    // Ouvrir celui cliqué sauf s'il était déjà ouvert
+    if (!isOpen) {
+      body.classList.add('open');
+      arrow.classList.add('open');
+    }
+  }
+</script>
+
+</body>
+</html>
