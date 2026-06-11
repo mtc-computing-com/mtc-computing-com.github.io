@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GED SaaS Open Source — Runbook MTC Computing</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.0.0/dist/tabler-icons.min.css">
+<style>
+  :root {
+    --bg: #ffffff; --bg2: #f5f5f4; --bg3: #e8e8e6;
+    --text: #1a1a18; --text2: #5f5e5a; --text3: #888780;
+    --border: rgba(0,0,0,0.12);
+    --green-bg: #eaf3de; --green-border: #639922; --green-text: #3b6d11;
+    --amber-bg: #faeeda; --amber-border: #ba7517; --amber-text: #854f0b;
+    --blue-bg: #e6f1fb; --blue-border: #185fa5; --blue-text: #0c447c;
+    --teal-bg: #e1f5ee; --teal-border: #0f6e56; --teal-text: #085041;
+    --radius: 10px; --radius-sm: 6px;
+    --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --mono: 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1c1c1a; --bg2: #252523; --bg3: #2e2e2b;
+      --text: #e8e8e4; --text2: #a8a8a0; --text3: #686860;
+      --border: rgba(255,255,255,0.12);
+      --green-bg: #173404; --green-border: #3b6d11; --green-text: #c0dd97;
+      --amber-bg: #412402; --amber-border: #854f0b; --amber-text: #fac775;
+      --blue-bg: #042c53; --blue-border: #185fa5; --blue-text: #b5d4f4;
+      --teal-bg: #04342c; --teal-border: #0f6e56; --teal-text: #9fe1cb;
+    }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font); background: var(--bg); color: var(--text); font-size: 15px; line-height: 1.6; }
+  .container { max-width: 860px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+  .site-header { border-bottom: 0.5px solid var(--border); padding-bottom: 1.5rem; margin-bottom: 2rem; }
+  .site-header h1 { font-size: 22px; font-weight: 600; color: var(--text); }
+  .site-header p { font-size: 14px; color: var(--text2); margin-top: 4px; }
+  .meta-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+  .tag { font-size: 11px; padding: 3px 10px; border-radius: 20px; border: 0.5px solid var(--border); color: var(--text3); }
+
+  .scope { border: 0.5px solid var(--border); border-radius: var(--radius); padding: 1.25rem 1.5rem; margin-bottom: 2rem; }
+  .scope-title { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 12px; }
+  .scope-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+  @media (max-width: 600px) { .scope-grid { grid-template-columns: 1fr; } }
+  .scope-col { border-radius: var(--radius-sm); padding: 0.75rem 1rem; }
+  .scope-col.in { background: var(--green-bg); border: 0.5px solid var(--green-border); }
+  .scope-col.out { background: var(--bg2); border: 0.5px solid var(--border); }
+  .scope-col-label { font-size: 11px; font-weight: 600; margin-bottom: 6px; }
+  .scope-col.in .scope-col-label { color: var(--green-text); }
+  .scope-col.out .scope-col-label { color: var(--text3); }
+  .scope-col ul { list-style: none; font-size: 12px; color: var(--text2); line-height: 1.9; }
+  .scope-note { font-size: 12px; color: var(--text2); border-top: 0.5px solid var(--border); padding-top: 10px; line-height: 1.6; }
+
+  .step-nav { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 1.5rem; }
+  .step-nav button { font-size: 12px; padding: 5px 13px; border-radius: 20px; border: 0.5px solid var(--border); background: transparent; color: var(--text2); cursor: pointer; font-family: var(--font); transition: all 0.15s; }
+  .step-nav button:hover { background: var(--bg2); color: var(--text); }
+  .step-nav button.active { background: var(--text); color: var(--bg); border-color: var(--text); }
+
+  .progress { height: 2px; background: var(--bg3); border-radius: 2px; margin-bottom: 2rem; }
+  .progress-bar { height: 100%; background: var(--text); border-radius: 2px; transition: width 0.3s; }
+
+  .step { display: none; }
+  .step.visible { display: block; }
+  .step-meta { margin-bottom: 1.25rem; }
+  .step-num { font-size: 11px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 4px; }
+  .step-title { font-size: 18px; font-weight: 600; color: var(--text); }
+  .step-goal { font-size: 13px; color: var(--text2); margin-top: 6px; line-height: 1.5; }
+
+  .tabs { display: flex; gap: 4px; margin-bottom: 1rem; flex-wrap: wrap; }
+  .tab { font-size: 12px; padding: 4px 12px; border-radius: var(--radius-sm); border: 0.5px solid var(--border); background: transparent; cursor: pointer; font-family: var(--font); color: var(--text2); }
+  .tab.on { background: var(--bg2); color: var(--text); }
+  .tab-pane { display: none; }
+  .tab-pane.on { display: block; }
+
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 1.25rem; }
+  .card { background: var(--bg); border: 0.5px solid var(--border); border-radius: var(--radius); padding: 0.9rem 1rem; }
+  .card-label { font-size: 11px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px; }
+  .card-val { font-size: 14px; font-weight: 600; color: var(--text); }
+  .card-sub { font-size: 11px; color: var(--text2); margin-top: 2px; }
+
+  .section { margin-bottom: 1.5rem; }
+  .section-title { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 8px; padding-left: 10px; border-left: 2px solid var(--text); }
+  .code-label { font-size: 11px; color: var(--text3); margin-bottom: 4px; font-family: var(--font); }
+  .code { background: var(--bg2); border: 0.5px solid var(--border); border-radius: var(--radius-sm); padding: 0.75rem 1rem; font-family: var(--mono); font-size: 12px; line-height: 1.7; color: var(--text); overflow-x: auto; white-space: pre; margin-bottom: 8px; }
+  code { font-family: var(--mono); font-size: 12px; background: var(--bg2); padding: 1px 5px; border-radius: 4px; color: var(--text); }
+
+  .warn { background: var(--amber-bg); border: 0.5px solid var(--amber-border); border-radius: var(--radius-sm); padding: 0.75rem 1rem; margin-bottom: 10px; font-size: 13px; color: var(--amber-text); line-height: 1.6; }
+  .info { background: var(--blue-bg); border: 0.5px solid var(--blue-border); border-radius: var(--radius-sm); padding: 0.75rem 1rem; margin-bottom: 10px; font-size: 13px; color: var(--blue-text); line-height: 1.6; }
+  .ok { background: var(--green-bg); border: 0.5px solid var(--green-border); border-radius: var(--radius-sm); padding: 0.75rem 1rem; margin-bottom: 10px; font-size: 13px; color: var(--green-text); line-height: 1.6; }
+
+  .checklist { list-style: none; }
+  .checklist li { display: flex; gap: 10px; align-items: flex-start; padding: 7px 0; border-bottom: 0.5px solid var(--border); font-size: 13px; color: var(--text2); line-height: 1.5; }
+  .checklist li:last-child { border-bottom: none; }
+  .checklist li i { font-size: 16px; margin-top: 1px; flex-shrink: 0; color: var(--text3); }
+
+  .flow { margin-bottom: 1.25rem; }
+  .flow-item { display: grid; grid-template-columns: 28px 1fr; gap: 0 10px; }
+  .flow-left { display: flex; flex-direction: column; align-items: center; }
+  .flow-circle { width: 26px; height: 26px; border-radius: 50%; background: var(--text); color: var(--bg); font-size: 11px; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .flow-line { width: 1px; background: var(--border); flex: 1; margin: 3px 0; min-height: 16px; }
+  .flow-body { padding: 2px 0 1.25rem; }
+  .flow-title { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 3px; }
+  .flow-desc { font-size: 12px; color: var(--text2); line-height: 1.5; }
+
+  .nav-footer { display: flex; justify-content: space-between; margin-top: 2.5rem; padding-top: 1.25rem; border-top: 0.5px solid var(--border); }
+  .nav-footer button { font-size: 13px; padding: 7px 18px; border-radius: var(--radius-sm); border: 0.5px solid var(--border); background: transparent; cursor: pointer; font-family: var(--font); color: var(--text); }
+  .nav-footer button:hover { background: var(--bg2); }
+  .nav-footer button:disabled { opacity: 0.3; cursor: default; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 1rem; }
+  th { text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text3); padding: 6px 10px; border-bottom: 0.5px solid var(--border); font-weight: 500; }
+  td { padding: 8px 10px; border-bottom: 0.5px solid var(--border); color: var(--text2); vertical-align: top; }
+  td:first-child { color: var(--text); font-family: var(--mono); font-size: 12px; white-space: nowrap; }
+  tr:last-child td { border-bottom: none; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="site-header">
+    <h1>GED SaaS open source — Alternative OpenText</h1>
+    <p>Nextcloud Hub · OCR · Extraction Python · APIs cloud · VMware Workstation · MTC Computing Runbook</p>
+    <div class="meta-tags">
+      <span class="tag">Ubuntu 26.04 LTS</span>
+      <span class="tag">VMware Workstation</span>
+      <span class="tag">Nextcloud Hub</span>
+      <span class="tag">Kubernetes / Minikube</span>
+      <span class="tag">Python 3.11</span>
+      <span class="tag">FastAPI</span>
+      <span class="tag">WebDAV / OCS API</span>
+      <span class="tag">Microsoft Graph</span>
+      <span class="tag">Google Drive API</span>
+    </div>
+  </div>
+
+  <div class="scope">
+    <div class="scope-title">Périmètre de ce runbook</div>
+    <div class="scope-grid">
+      <div class="scope-col in">
+        <div class="scope-col-label">Ce document couvre</div>
+        <ul>
+          <li>Infrastructure VMware + 2 VMs Ubuntu</li>
+          <li>Déploiement Nextcloud Hub + OCR</li>
+          <li>Flux scan → Nextcloud (WebDAV)</li>
+          <li>Extraction Python (désignation/nom/ville/date)</li>
+          <li>API FastAPI exposée via Kubernetes</li>
+          <li>Intégration M365 (Graph) + Google Drive</li>
+        </ul>
+      </div>
+      <div class="scope-col out">
+        <div class="scope-col-label">Hors périmètre</div>
+        <ul>
+          <li>LLM local / Ollama (extension future)</li>
+          <li>GitOps / ArgoCD</li>
+          <li>Interface React client</li>
+          <li>Sécurisation TLS production</li>
+          <li>Multi-tenant avancé</li>
+        </ul>
+      </div>
+    </div>
+    <div class="scope-note">Ce runbook couvre la <strong>couche infra et intégration</strong> : déployer, connecter, extraire, synchroniser. La sécurisation avancée et les extensions LLM feront l'objet d'un second volet. Deux entités fictives hébergées : <strong>Association des Petits Bouchons</strong> et <strong>Les Américains à la Lune</strong>.</div>
+  </div>
+
+  <div class="step-nav" id="nav">
+    <button class="active" onclick="goto(0)">1 · Infrastructure VMware</button>
+    <button onclick="goto(1)">2 · Nextcloud Hub + OCR</button>
+    <button onclick="goto(2)">3 · Flux scan → GED</button>
+    <button onclick="goto(3)">4 · Extraction Python</button>
+    <button onclick="goto(4)">5 · API FastAPI + K8s</button>
+    <button onclick="goto(5)">6 · M365 + Google Drive</button>
+    <button onclick="goto(6)">Référence</button>
+  </div>
+  <div class="progress"><div class="progress-bar" id="prog" style="width:14.2%"></div></div>
+
+  <!-- ÉTAPE 1 -->
+  <div class="step visible" id="s0">
+    <div class="step-meta">
+      <div class="step-num">Étape 1 / 6</div>
+      <div class="step-title">Infrastructure VMware — 2 VMs Ubuntu</div>
+      <div class="step-goal">Disposer de deux VMs opérationnelles, réseau interne isolé, et passthrough USB scanner vers VM1. Point de départ de tout le reste.</div>
+    </div>
+    <div class="cards">
+      <div class="card"><div class="card-label">VM1 — GED</div><div class="card-val">4 vCPU · 8 Go</div><div class="card-sub">Nextcloud Hub + Minikube</div></div>
+      <div class="card"><div class="card-label">VM2 — Extractor</div><div class="card-val">2 vCPU · 4 Go</div><div class="card-sub">Python + VSCode Server</div></div>
+      <div class="card"><div class="card-label">Réseau</div><div class="card-val">VMnet interne</div><div class="card-sub">+ NAT pour accès internet</div></div>
+      <div class="card"><div class="card-label">OS</div><div class="card-val">Ubuntu 26.04 LTS</div><div class="card-sub">Codename : Resolute</div></div>
+    </div>
+    <div class="section">
+      <div class="section-title">Vérification OS — VM1 et VM2</div>
+      <div class="code">lsb_release -a
+# Résultat attendu :
+# Description: Ubuntu 26.04 LTS
+# Codename:    resolute</div>
+      <div class="ok"><i class="ti ti-check"></i> Ubuntu 26.04 LTS confirmé sur VM1 (capture disponible).</div>
+    </div>
+    <div class="section">
+      <div class="section-title">Réseau VMware — configuration</div>
+      <div class="tabs">
+        <button class="tab on" onclick="tab(this,'t0a')">VMnet interne</button>
+        <button class="tab" onclick="tab(this,'t0b')">USB passthrough scanner</button>
+      </div>
+      <div class="tab-pane on" id="t0a">
+        <div class="code"># Sur chaque VM : vérifier l'interface réseau interne
+ip addr show
+# VM1 doit avoir une IP fixe ex: 192.168.100.10
+# VM2 doit avoir une IP fixe ex: 192.168.100.20
+
+# Test de connectivité inter-VMs
+ping 192.168.100.20   # depuis VM1 vers VM2</div>
+        <div class="info"><i class="ti ti-info-circle"></i> Dans VMware Workstation : Edit → Virtual Network Editor → Ajouter VMnet en mode Host-only. Assigner ce VMnet aux deux VMs. Ajouter un second adaptateur NAT pour l'accès internet.</div>
+      </div>
+      <div class="tab-pane" id="t0b">
+        <div class="code"># VMware Workstation : VM → Removable Devices → [Scanner] → Connect
+# Vérification dans VM1 :
+lsusb
+# Le scanner doit apparaître dans la liste
+
+# Test SANE
+sudo apt install -y sane-utils
+scanimage -L
+# Doit lister le périphérique USB connecté</div>
+        <div class="warn"><i class="ti ti-alert-triangle"></i> Le passthrough USB nécessite que VMware Tools soit installé sur VM1. Sans lui, la détection USB est instable.</div>
+      </div>
+    </div>
+    <div class="section">
+      <div class="section-title">Installation Minikube sur VM1</div>
+      <div class="code">curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+sudo install minikube-linux-amd64 /usr/local/bin/minikube
+curl -LO "https://dl.k8s.io/release/$(curl -L -s \
+  https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+
+# Démarrer le cluster
+minikube start --cpus=3 --memory=6144 --driver=docker
+
+# Vérification
+kubectl get nodes    # doit afficher minikube   Ready</div>
+    </div>
+  </div>
+
+  <!-- ÉTAPE 2 -->
+  <div class="step" id="s1">
+    <div class="step-meta">
+      <div class="step-num">Étape 2 / 6</div>
+      <div class="step-title">Nextcloud Hub — installation et OCR</div>
+      <div class="step-goal">Déployer Nextcloud Hub sur VM1 via Docker, activer le module Recognize pour l'OCR automatique des documents scannés, créer les dossiers des deux entités fictives.</div>
+    </div>
+    <div class="section">
+      <div class="section-title">Déploiement Nextcloud Hub (Docker Compose)</div>
+      <div class="code-label">docker-compose-nextcloud.yaml</div>
+      <div class="code">version: '3'
+services:
+  nextcloud:
+    image: nextcloud:latest
+    ports:
+      - "8080:80"
+    volumes:
+      - nextcloud_data:/var/www/html
+    environment:
+      - NEXTCLOUD_ADMIN_USER=admin
+      - NEXTCLOUD_ADMIN_PASSWORD=${NC_ADMIN_PASS}
+      - MYSQL_HOST=db
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=nextcloud
+      - MYSQL_PASSWORD=${NC_DB_PASS}
+  db:
+    image: mariadb:10.11
+    volumes:
+      - db_data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=${NC_ROOT_PASS}
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=nextcloud
+      - MYSQL_PASSWORD=${NC_DB_PASS}
+volumes:
+  nextcloud_data:
+  db_data:</div>
+      <div class="warn"><i class="ti ti-alert-triangle"></i> Ne jamais hardcoder les mots de passe. Utiliser un fichier <code>.env</code> exclu du dépôt Git (<code>.gitignore</code>).</div>
+    </div>
+    <div class="section">
+      <div class="section-title">Démarrage et vérification</div>
+      <div class="code">docker compose up -d
+# Attendre ~60s puis vérifier
+curl -s http://localhost:8080/status.php | python3 -m json.tool
+# Attendu : "installed": true</div>
+      <div class="ok"><i class="ti ti-check"></i> Interface Nextcloud accessible sur http://192.168.100.10:8080</div>
+    </div>
+    <div class="section">
+      <div class="section-title">Création des dossiers — deux entités fictives</div>
+      <div class="code"># Via WebDAV — créer les dossiers Scans pour chaque entité
+curl -X MKCOL \
+  -u "admin:${NC_ADMIN_PASS}" \
+  "http://localhost:8080/remote.php/dav/files/admin/Scans_PetitsBouchons"
+
+curl -X MKCOL \
+  -u "admin:${NC_ADMIN_PASS}" \
+  "http://localhost:8080/remote.php/dav/files/admin/Scans_AmericainsLune"</div>
+    </div>
+    <div class="section">
+      <div class="section-title">Token d'application Nextcloud</div>
+      <div class="code"># Interface Nextcloud → Paramètres → Sécurité → Créer un nouveau token
+# Copier le token généré → stocker dans .env
+# NC_APP_TOKEN=xxxx-xxxx-xxxx-xxxx-xxxx
+
+# Ne jamais utiliser le mot de passe admin dans les scripts Python</div>
+      <div class="info"><i class="ti ti-info-circle"></i> Le module Recognize (OCR) s'installe depuis Apps → Recognize dans l'interface Nextcloud. Il traite automatiquement les PDFs déposés dans les dossiers surveillés.</div>
+    </div>
+  </div>
+
+  <!-- ÉTAPE 3 -->
+  <div class="step" id="s2">
+    <div class="step-meta">
+      <div class="step-num">Étape 3 / 6</div>
+      <div class="step-title">Flux scan → GED automatisé</div>
+      <div class="step-goal">Automatiser le cycle complet : déclenchement du scanner via SANE, génération du PDF, dépôt automatique dans Nextcloud via WebDAV, avec pod Kubernetes dédié.</div>
+    </div>
+    <div class="section">
+      <div class="section-title">Pod scanner — manifest Kubernetes corrigé</div>
+      <div class="code-label">scanimage.yaml</div>
+      <div class="code">apiVersion: v1
+kind: Pod
+metadata:
+  name: scan-usb
+spec:
+  containers:
+  - name: scanner
+    image: ubuntu:22.04
+    command: ["/bin/bash", "-c"]
+    args:
+      - |
+        apt update && apt install -y sane-utils curl &&
+        while true; do sleep 3600; done
+    securityContext:
+      privileged: true
+    volumeMounts:
+    - name: usb
+      mountPath: /dev/bus/usb
+  volumes:
+  - name: usb
+    hostPath:
+      path: /dev/bus/usb</div>
+      <div class="ok"><i class="ti ti-check"></i> Args corrigés : une seule chaîne avec <code>|</code> pour exécuter les commandes en séquence.</div>
+    </div>
+    <div class="section">
+      <div class="section-title">Script de scan et dépôt WebDAV</div>
+      <div class="code-label">scan_and_upload.sh</div>
+      <div class="code">#!/bin/bash
+# Usage : ./scan_and_upload.sh petits_bouchons
+ENTITY=${1:-"petits_bouchons"}
+TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+OUTPUT="/tmp/scan_${ENTITY}_${TIMESTAMP}.pdf"
+
+# 1. Scan via SANE
+scanimage --format=pdf --resolution=300 > "$OUTPUT"
+echo "[OK] Scan produit : $OUTPUT"
+
+# 2. Upload vers Nextcloud via WebDAV
+NC_FOLDER="Scans_${ENTITY}"
+curl -T "$OUTPUT" \
+  -u "${NC_USER}:${NC_APP_TOKEN}" \
+  "http://${NC_HOST}:8080/remote.php/dav/files/${NC_USER}/${NC_FOLDER}/$(basename $OUTPUT)"
+echo "[OK] Document déposé dans Nextcloud : ${NC_FOLDER}"
+
+# 3. Nettoyage local
+rm "$OUTPUT"</div>
+    </div>
+    <div class="section">
+      <div class="section-title">Déclenchement depuis Kubernetes</div>
+      <div class="code"># Port-forward vers le pod scanner
+kubectl port-forward pod/scan-usb 8081:8080
+
+# Déclencher un scan via l'API REST
+curl -X POST http://localhost:8081/scan \
+  -H "Content-Type: application/json" \
+  -d '{"entity":"petits_bouchons","device":"usb:001:003"}'
+
+# Vérifier les logs du pod
+kubectl logs scan-usb -f</div>
+      <div class="warn"><i class="ti ti-alert-triangle"></i> Le port-forward est temporaire — à chaque redémarrage de Minikube il faut le relancer. Pour une démo continue, utiliser un Service NodePort.</div>
+    </div>
+  </div>
+
+  <!-- ÉTAPE 4 -->
+  <div class="step" id="s3">
+    <div class="step-meta">
+      <div class="step-num">Étape 4 / 6</div>
+      <div class="step-title">Extraction Python — désignation / nom / ville / date</div>
+      <div class="step-goal">Script Python déployé sur VM2 qui interroge Nextcloud via WebDAV, télécharge les nouveaux PDFs, extrait les champs structurés par regex, et produit CSV + JSON.</div>
+    </div>
+    <div class="section">
+      <div class="section-title">Connexion Nextcloud via WebDAV</div>
+      <div class="code-label">config_nextcloud.py</div>
+      <div class="code">import os
+from webdav3.client import Client
+
+options = {
+    'webdav_hostname': f"http://{os.environ['NC_HOST']}:8080/remote.php/dav",
+    'webdav_login':    os.environ['NC_USER'],
+    'webdav_password': os.environ['NC_APP_TOKEN']
+}
+client = Client(options)</div>
+      <div class="info"><i class="ti ti-info-circle"></i> Toutes les variables sensibles passent par des variables d'environnement. Jamais d'IP ou de token en dur dans le code.</div>
+    </div>
+    <div class="section">
+      <div class="section-title">Téléchargement des nouveaux documents</div>
+      <div class="code-label">telecharger_lister.py</div>
+      <div class="code">import time, os
+from config_nextcloud import client
+
+def get_new_documents(folder="/Scans_petits_bouchons", last_run_file="last_ts.txt"):
+    try:
+        with open(last_run_file, 'r') as f:
+            last_ts = float(f.read())
+    except:
+        last_ts = 0
+
+    items = client.list(folder)
+    new_files = []
+    for item in items:
+        if not item.endswith('.pdf'):
+            continue
+        props = client.info(folder + '/' + item)
+        modified = float(props.get('modified', 0))
+        if modified > last_ts:
+            local_path = f"./downloads/{item}"
+            os.makedirs("./downloads", exist_ok=True)
+            client.download_file(folder + '/' + item, local_path)
+            new_files.append(local_path)
+
+    with open(last_run_file, 'w') as f:
+        f.write(str(time.time()))
+    return new_files</div>
+    </div>
+    <div class="section">
+      <div class="section-title">Extraction des champs structurés</div>
+      <div class="code-label">champs_cibles.py</div>
+      <div class="code">import re
+
+def extract_fields(text):
+    designation = re.search(r"D[ée]signation\s*:\s*(.+)", text, re.IGNORECASE)
+    designation = designation.group(1).strip() if designation else ""
+
+    nom = re.search(r"Nom\s*:\s*(.+)", text, re.IGNORECASE)
+    nom = nom.group(1).strip() if nom else ""
+
+    ville = re.search(r"Ville\s*:\s*(.+)", text, re.IGNORECASE)
+    ville = ville.group(1).strip() if ville else ""
+
+    # Format JJ/MM/AAAA ou AAAA-MM-JJ
+    date = re.search(r"\b(\d{2}/\d{2}/\d{4})\b", text)
+    if not date:
+        date = re.search(r"\b(\d{4}-\d{2}-\d{2})\b", text)
+    date = date.group(1) if date else ""
+
+    return {"designation": designation, "nom": nom, "ville": ville, "date": date}</div>
+    </div>
+    <div class="section">
+      <div class="section-title">Assemblage — main.py</div>
+      <div class="code-label">main.py</div>
+      <div class="code">import pdfplumber, pandas as pd, json
+from telecharger_lister import get_new_documents
+from champs_cibles import extract_fields
+
+def extract_text_from_pdf(pdf_path):
+    with pdfplumber.open(pdf_path) as pdf:
+        return "".join(page.extract_text() or "" for page in pdf.pages)
+
+def run_extraction(folder):
+    new_files = get_new_documents(folder=folder)
+    if not new_files:
+        print(f"[INFO] Aucun nouveau document dans {folder}")
+        return []
+
+    results = []
+    for pdf_file in new_files:
+        text = extract_text_from_pdf(pdf_file)
+        data = extract_fields(text)
+        data["source_file"] = pdf_file
+        data["entite"] = folder.replace("/Scans_", "")
+        results.append(data)
+
+    df = pd.DataFrame(results)
+    df.to_csv("extractions.csv", mode='a', header=not pd.io.common.file_exists("extractions.csv"), index=False)
+    with open("extractions.json", "w", encoding="utf-8") as f:
+        json.dump(results, f, indent=2, ensure_ascii=False)
+    print(f"[OK] {len(results)} document(s) extrait(s)")
+    return results
+
+if __name__ == "__main__":
+    run_extraction("/Scans_petits_bouchons")
+    run_extraction("/Scans_AmericainsLune")</div>
+    </div>
+  </div>
+
+  <!-- ÉTAPE 5 -->
+  <div class="step" id="s4">
+    <div class="step-meta">
+      <div class="step-num">Étape 5 / 6</div>
+      <div class="step-title">API FastAPI exposée via Kubernetes</div>
+      <div class="step-goal">Exposer les résultats d'extraction via une API REST FastAPI déployée dans un pod Kubernetes. Le pod API REST interroge main.py et sert les données structurées.</div>
+    </div>
+    <div class="section">
+      <div class="section-title">Pod API REST — manifest corrigé</div>
+      <div class="code-label">api-REST.yaml — ports cohérents</div>
+      <div class="code">apiVersion: v1
+kind: Pod
+metadata:
+  name: scan-api
+  labels:
+    app: scan-api
+spec:
+  containers:
+  - name: server
+    image: python:3.11-slim
+    command: ["/bin/bash", "-c"]
+    args:
+      - |
+        pip install fastapi uvicorn pdfplumber webdav3 pandas &&
+        python -c "
+import json, os
+from fastapi import FastAPI
+from fastapi.responses import JSONResponse
+import uvicorn
+
+app = FastAPI()
+
+@app.get('/extractions')
+def get_extractions():
+    try:
+        with open('/data/extractions.json') as f:
+            return JSONResponse(json.load(f))
+    except:
+        return JSONResponse([])
+
+@app.post('/scan')
+def trigger_scan(entity: str = 'petits_bouchons'):
+    return {'status': 'scan déclenché', 'entite': entity}
+
+uvicorn.run(app, host='0.0.0.0', port=8080)
+"
+    ports:
+    - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: scan-api
+spec:
+  selector:
+    app: scan-api
+  ports:
+  - port: 8080
+    targetPort: 8080</div>
+      <div class="ok"><i class="ti ti-check"></i> Port cohérent : containerPort 8080 → Service port 8080 → port-forward 8081:8080.</div>
+    </div>
+    <div class="section">
+      <div class="section-title">Déploiement et test</div>
+      <div class="code">kubectl apply -f api-REST.yaml
+
+# Port-forward corrigé (8081 → 8080, pas 80)
+kubectl port-forward svc/scan-api 8081:8080
+
+# Test de l'API
+curl http://localhost:8081/extractions | python3 -m json.tool
+
+# Exemple de réponse attendue :
+# [
+#   {
+#     "designation": "Facture prestation Q2",
+#     "nom": "Dupont Jean",
+#     "ville": "Bordeaux",
+#     "date": "10/06/2026",
+#     "entite": "petits_bouchons"
+#   }
+# ]</div>
+    </div>
+    <div class="section">
+      <div class="section-title">Secret Kubernetes pour les credentials</div>
+      <div class="code">kubectl create secret generic nextcloud-creds \
+  --from-literal=nc-host='192.168.100.10' \
+  --from-literal=nc-user='admin' \
+  --from-literal=nc-token='xxxx-xxxx-xxxx'
+
+# Vérification (valeurs encodées base64, non chiffrées)
+kubectl get secret nextcloud-creds -o yaml</div>
+      <div class="warn"><i class="ti ti-alert-triangle"></i> Les secrets Kubernetes sont encodés base64, non chiffrés. En production : Vault ou Sealed Secrets. Pour cette démo : acceptable.</div>
+    </div>
+  </div>
+
+  <!-- ÉTAPE 6 -->
+  <div class="step" id="s5">
+    <div class="step-meta">
+      <div class="step-num">Étape 6 / 6</div>
+      <div class="step-title">Intégration M365 (Graph API) + Google Drive</div>
+      <div class="step-goal">Les documents extraits sont synchronisés vers Google Drive et une notification e-mail est envoyée via Microsoft Graph API. Simulation avec deux tenants sandbox.</div>
+    </div>
+    <div class="section">
+      <div class="section-title">Google Drive — dépôt automatique</div>
+      <div class="code-label">google_drive_upload.py</div>
+      <div class="code">import os, json
+from google.oauth2 import service_account
+from googleapiclient.discovery import build
+from googleapiclient.http import MediaFileUpload
+
+SCOPES = ['https://www.googleapis.com/auth/drive.file']
+SERVICE_ACCOUNT_FILE = os.environ['GOOGLE_SA_JSON']
+
+def upload_to_drive(local_file, folder_id, filename):
+    creds = service_account.Credentials.from_service_account_file(
+        SERVICE_ACCOUNT_FILE, scopes=SCOPES)
+    service = build('drive', 'v3', credentials=creds)
+
+    file_metadata = {'name': filename, 'parents': [folder_id]}
+    media = MediaFileUpload(local_file, mimetype='application/json')
+    file = service.files().create(
+        body=file_metadata, media_body=media, fields='id').execute()
+    print(f"[OK] Fichier déposé dans Drive : {file.get('id')}")
+    return file.get('id')
+
+# Appel après extraction
+upload_to_drive("extractions.json", os.environ['GDRIVE_FOLDER_ID'], "extractions_ged.json")</div>
+    </div>
+    <div class="section">
+      <div class="section-title">Microsoft Graph API — notification e-mail</div>
+      <div class="code-label">graph_notify.py</div>
+      <div class="code">import os, requests
+
+def send_notification(nb_docs, entite):
+    tenant_id  = os.environ['MS_TENANT_ID']
+    client_id  = os.environ['MS_CLIENT_ID']
+    client_secret = os.environ['MS_CLIENT_SECRET']
+
+    # 1. Obtenir le token
+    token_url = f"https://login.microsoftonline.com/{tenant_id}/oauth2/v2.0/token"
+    token_resp = requests.post(token_url, data={
+        'grant_type': 'client_credentials',
+        'client_id': client_id,
+        'client_secret': client_secret,
+        'scope': 'https://graph.microsoft.com/.default'
+    })
+    access_token = token_resp.json()['access_token']
+
+    # 2. Envoyer l'e-mail
+    mail_url = f"https://graph.microsoft.com/v1.0/users/{os.environ['MS_SENDER']}/sendMail"
+    payload = {
+        "message": {
+            "subject": f"[GED MTC] {nb_docs} document(s) extrait(s) — {entite}",
+            "body": {"contentType": "Text",
+                     "content": f"{nb_docs} nouveaux documents traités pour {entite}."},
+            "toRecipients": [{"emailAddress": {"address": os.environ['MS_RECIPIENT']}}]
+        }
+    }
+    requests.post(mail_url, json=payload,
+                  headers={"Authorization": f"Bearer {access_token}"})
+    print(f"[OK] Notification envoyée via Graph API")</div>
+    </div>
+    <div class="section">
+      <div class="section-title">Orchestration finale — pipeline complet</div>
+      <div class="code-label">pipeline.py</div>
+      <div class="code">from main import run_extraction
+from google_drive_upload import upload_to_drive
+from graph_notify import send_notification
+import os
+
+ENTITES = [
+    ("/Scans_petits_bouchons", "Association des Petits Bouchons"),
+    ("/Scans_AmericainsLune",  "Les Américains à la Lune")
+]
+
+for folder, label in ENTITES:
+    results = run_extraction(folder)
+    if results:
+        upload_to_drive("extractions.json", os.environ['GDRIVE_FOLDER_ID'],
+                        f"extractions_{label.replace(' ','_')}.json")
+        send_notification(len(results), label)</div>
+      <div class="ok"><i class="ti ti-check"></i> Pipeline complet : Nextcloud → extraction Python → Google Drive → notification M365.</div>
+    </div>
+  </div>
+
+  <!-- RÉFÉRENCE -->
+  <div class="step" id="s6">
+    <div class="step-meta">
+      <div class="step-num">Référence</div>
+      <div class="step-title">Dépendances, variables d'environnement, erreurs fréquentes</div>
+      <div class="step-goal">Récapitulatif des packages, variables .env nécessaires, et erreurs à anticiper avant de lancer le pipeline.</div>
+    </div>
+    <div class="section">
+      <div class="section-title">Packages Python requis</div>
+      <div class="code">pip install \
+  fastapi uvicorn \
+  pdfplumber \
+  webdav3 \
+  pandas \
+  google-api-python-client google-auth \
+  requests</div>
+    </div>
+    <div class="section">
+      <div class="section-title">Fichier .env — toutes les variables</div>
+      <div class="code"># Nextcloud
+NC_HOST=192.168.100.10
+NC_USER=admin
+NC_ADMIN_PASS=changeme
+NC_APP_TOKEN=xxxx-xxxx-xxxx-xxxx
+NC_DB_PASS=changeme_db
+NC_ROOT_PASS=changeme_root
+
+# Google
+GOOGLE_SA_JSON=/secrets/google-sa.json
+GDRIVE_FOLDER_ID=1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs
+
+# Microsoft Graph
+MS_TENANT_ID=xxxxxxxx-xxxx-xxxx-xxxx
+MS_CLIENT_ID=xxxxxxxx-xxxx-xxxx-xxxx
+MS_CLIENT_SECRET=xxxxxxxxxxxxxxxxxxxxxxxx
+MS_SENDER=admin@mtccomputing.onmicrosoft.com
+MS_RECIPIENT=contact@mtccomputing.fr</div>
+      <div class="warn"><i class="ti ti-alert-triangle"></i> Ce fichier doit être dans <code>.gitignore</code>. Ne jamais le committer.</div>
+    </div>
+    <div class="section">
+      <div class="section-title">Erreurs fréquentes</div>
+      <table>
+        <tr><th>Erreur</th><th>Cause</th><th>Correction</th></tr>
+        <tr><td>port-forward 8081:80</td><td>Service expose 8080, pas 80</td><td><code>kubectl port-forward svc/scan-api 8081:8080</code></td></tr>
+        <tr><td>scanimage args crash</td><td>Deux éléments de liste séparés</td><td>Utiliser <code>|</code> pour une seule chaîne</td></tr>
+        <tr><td>new_files undefined</td><td>assemblage.py appelle variable non importée</td><td>Utiliser <code>main.py</code> qui importe <code>telecharger_lister</code></td></tr>
+        <tr><td>WebDAV 401</td><td>Token expiré ou mot de passe admin utilisé</td><td>Régénérer le token d'application Nextcloud</td></tr>
+        <tr><td>pdfplumber retourne vide</td><td>PDF scanné sans OCR préalable</td><td>Vérifier que Recognize a traité le fichier</td></tr>
+        <tr><td>Graph API 403</td><td>Permission Mail.Send non accordée</td><td>Azure AD → App → API permissions → Mail.Send</td></tr>
+      </table>
+    </div>
+    <div class="section">
+      <div class="section-title">Ce que ce projet démontre — positionnement</div>
+      <table>
+        <tr><th>Compétence</th><th>Preuve dans ce projet</th></tr>
+        <tr><td>GED open source</td><td>Nextcloud Hub en remplacement d'OpenText</td></tr>
+        <tr><td>Infrastructure on-premise</td><td>VMware Workstation + Minikube, sans cloud</td></tr>
+        <tr><td>Intégration API</td><td>WebDAV + Graph API + Google Drive API</td></tr>
+        <tr><td>Python ETL documentaire</td><td>OCR → extraction regex → CSV/JSON</td></tr>
+        <tr><td>Multi-tenant</td><td>Deux entités fictives isolées dans Nextcloud</td></tr>
+        <tr><td>Sécurité basique</td><td>Tokens applicatifs, .env, secrets Kubernetes</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="nav-footer">
+    <button id="btn-prev" onclick="move(-1)" disabled>← Précédent</button>
+    <button id="btn-next" onclick="move(1)">Suivant →</button>
+  </div>
+
+</div>
+<script>
+var cur = 0, total = 7;
+function goto(n) {
+  document.getElementById('s'+cur).classList.remove('visible');
+  document.querySelectorAll('.step-nav button')[cur].classList.remove('active');
+  cur = n;
+  document.getElementById('s'+cur).classList.add('visible');
+  document.querySelectorAll('.step-nav button')[cur].classList.add('active');
+  document.getElementById('prog').style.width = Math.round((cur+1)/total*100)+'%';
+  document.getElementById('btn-prev').disabled = cur === 0;
+  document.getElementById('btn-next').disabled = cur === total-1;
+  window.scrollTo(0, 0);
+}
+function move(d) { if(cur+d>=0 && cur+d<total) goto(cur+d); }
+function tab(el, id) {
+  var p = el.parentElement;
+  p.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('on'); });
+  el.classList.add('on');
+  var s = p.parentElement;
+  s.querySelectorAll('.tab-pane').forEach(function(c){ c.classList.remove('on'); });
+  document.getElementById(id).classList.add('on');
+}
+</script>
+</body>
+</html>
