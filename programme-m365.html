@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Formation Microsoft 365 — Gestion de Tenant — MTC Computing</title>
+  <meta name="description" content="Formation Microsoft 365 — Gestion efficace et sécurisée d'un tenant M365. 7 heures. SharePoint, Teams, licences, MFA. MTC Computing NDA 7533164433." />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .prog-hero { padding: 4.5rem 0 3rem; border-bottom: 1px solid var(--border, #e2e2e2); }
+    .prog-hero .breadcrumb { font-size: .78rem; color: var(--muted, #888); margin-bottom: 1.5rem; }
+    .prog-hero .breadcrumb a { color: var(--muted, #888); text-decoration: none; }
+    .prog-hero .breadcrumb a:hover { color: var(--fg, #111); }
+    .prog-hero .breadcrumb span { margin: 0 .4rem; }
+    .prog-domain { font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #0078d4; margin-bottom: .75rem; }
+    .prog-hero h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 700; line-height: 1.2; margin-bottom: 1rem; color: var(--fg, #111); }
+    .prog-hero h1 em { font-style: italic; color: #0078d4; }
+    .prog-tagline { font-size: 1rem; color: var(--muted, #666); margin-bottom: 2rem; max-width: 600px; line-height: 1.6; }
+    .prog-summary { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 2rem; }
+    .summary-pill { display: flex; flex-direction: column; gap: .15rem; background: var(--surface, #f7f7f5); border: 1px solid var(--border, #e2e2e2); border-radius: 10px; padding: .75rem 1.25rem; min-width: 130px; }
+    .pill-label { font-size: .65rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted, #888); }
+    .pill-value { font-size: .95rem; font-weight: 700; color: var(--fg, #111); }
+    .pill-value.accent { color: #0078d4; }
+    .prog-layout { display: grid; grid-template-columns: 1fr 300px; gap: 3rem; padding: 3rem 0 5rem; align-items: start; }
+    .prog-section-label { font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted, #888); margin-bottom: 1.5rem; }
+    .prog-block { margin-bottom: 2.5rem; }
+    .prog-block-title { font-size: 1.05rem; font-weight: 700; color: var(--fg, #111); margin-bottom: 1.25rem; padding-bottom: .6rem; border-bottom: 2px solid #0078d4; display: flex; align-items: center; gap: .6rem; }
+    .prog-block-title .block-num { background: #0078d4; color: #fff; font-size: .7rem; font-weight: 700; border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .prog-slot { margin-bottom: 1.25rem; padding-left: 1rem; border-left: 2px solid var(--border, #e2e2e2); }
+    .prog-slot-time { font-size: .72rem; font-weight: 700; color: #0078d4; letter-spacing: .04em; margin-bottom: .3rem; }
+    .prog-slot-title { font-size: .92rem; font-weight: 700; color: var(--fg, #111); margin-bottom: .4rem; }
+    .prog-slot ul { list-style: none; padding: 0; margin: 0; }
+    .prog-slot ul li { font-size: .85rem; color: var(--muted, #555); line-height: 1.6; padding-left: 1rem; position: relative; }
+    .prog-slot ul li::before { content: '→'; position: absolute; left: 0; color: #0078d4; font-size: .75rem; }
+    .prog-sidebar { position: sticky; top: 2rem; display: flex; flex-direction: column; gap: 1.25rem; }
+    .sidebar-card { background: var(--surface, #f7f7f5); border: 1px solid var(--border, #e2e2e2); border-radius: 12px; padding: 1.5rem; }
+    .sidebar-card-title { font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted, #888); margin-bottom: 1rem; }
+    .sidebar-price { font-size: 2rem; font-weight: 800; color: #0078d4; line-height: 1; margin-bottom: .25rem; }
+    .sidebar-price-sub { font-size: .78rem; color: var(--muted, #888); margin-bottom: 1.25rem; }
+    .sidebar-meta li { display: flex; justify-content: space-between; font-size: .82rem; padding: .45rem 0; border-bottom: 1px solid var(--border, #e2e2e2); color: var(--muted, #555); }
+    .sidebar-meta li:last-child { border-bottom: none; }
+    .sidebar-meta li strong { color: var(--fg, #111); }
+    .sidebar-cta { display: block; text-align: center; background: #0078d4; color: #fff; border-radius: 8px; padding: .8rem 1rem; font-size: .88rem; font-weight: 700; text-decoration: none; margin-top: 1.25rem; transition: opacity .2s; }
+    .sidebar-cta:hover { opacity: .85; }
+    .sidebar-tags { display: flex; flex-wrap: wrap; gap: .4rem; }
+    .sidebar-tag { font-size: .72rem; background: var(--bg, #fff); border: 1px solid var(--border, #e2e2e2); border-radius: 6px; padding: .25rem .6rem; color: var(--muted, #666); }
+    @media (max-width: 768px) { .prog-layout { grid-template-columns: 1fr; } .prog-sidebar { position: static; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="assets/LOGO.png" alt="MTC Computing" style="height:114px;width:auto;" />
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html#about">Profil</a></li>
+      <li><a href="index.html#competences">Compétences</a></li>
+      <li><a href="index.html#experience">Réalisations</a></li>
+      <li><a href="index.html#content">YouTube</a></li>
+      <li><a href="articles.html">Articles</a></li>
+      <li><a href="formations.html">Offre de formation</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="prog-hero">
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="formations.html">Offre de formation</a>
+      <span>›</span>
+      Microsoft 365 · Cloud
+    </div>
+    <div class="prog-domain">Microsoft 365 · SharePoint · Teams · Cloud</div>
+    <h1>Gestion Efficace et Sécurisée<br/><em>d'un Tenant Microsoft 365</em></h1>
+    <p class="prog-tagline">
+      Administrer son environnement Microsoft 365 au quotidien — sécurité, licences,
+      SharePoint, Teams et accès externes — sans être administrateur global Microsoft.
+    </p>
+    <div class="prog-summary">
+      <div class="summary-pill">
+        <span class="pill-label">Durée</span>
+        <span class="pill-value">7 heures</span>
+      </div>
+      <div class="summary-pill">
+        <span class="pill-label">Tarif HT</span>
+        <span class="pill-value accent">Sur devis</span>
+      </div>
+      <div class="summary-pill">
+        <span class="pill-label">Niveau</span>
+        <span class="pill-value">Intermédiaire</span>
+      </div>
+      <div class="summary-pill">
+        <span class="pill-label">Prérequis</span>
+        <span class="pill-value">Navigation web</span>
+      </div>
+      <div class="summary-pill">
+        <span class="pill-label">Format</span>
+        <span class="pill-value">1 journée</span>
+      </div>
+      <div class="summary-pill">
+        <span class="pill-label">Mode</span>
+        <span class="pill-value">Distanciel</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="prog-layout">
+
+      <div class="prog-main">
+        <p class="prog-section-label">Programme détaillé — 1 journée · 7 heures</p>
+
+        <!-- BLOC 1 -->
+        <div class="prog-block">
+          <div class="prog-block-title">
+            <span class="block-num">1</span>
+            Administration & sécurité du tenant <span style="font-weight:400; font-size:.85rem;">(2h30)</span>
+          </div>
+
+          <div class="prog-slot">
+            <div class="prog-slot-time">09h00 – 10h30</div>
+            <div class="prog-slot-title">Prise en main du Centre d'Administration M365</div>
+            <ul>
+              <li>Découverte de la console d'administration et configuration du domaine personnalisé</li>
+              <li>Activation obligatoire du MFA (double authentification) pour bloquer les piratages de comptes</li>
+              <li>Paramétrage de la sécurité globale de base du tenant</li>
+            </ul>
+          </div>
+
+          <div class="prog-slot">
+            <div class="prog-slot-time">10h45 – 11h00</div>
+            <div class="prog-slot-title">Gestion des rôles et responsabilités</div>
+            <ul>
+              <li>Différence entre Administrateur Général, Admin Utilisateurs et Admin Helpdesk</li>
+              <li>Attribution rigoureuse des rôles pour éviter les pleins pouvoirs par erreur</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- BLOC 2 -->
+        <div class="prog-block">
+          <div class="prog-block-title">
+            <span class="block-num">2</span>
+            Comptes, licences & coûts <span style="font-weight:400; font-size:.85rem;">(1h30)</span>
+          </div>
+
+          <div class="prog-slot">
+            <div class="prog-slot-time">11h00 – 12h30</div>
+            <div class="prog-slot-title">Gestion opérationnelle des comptes et licences</div>
+            <ul>
+              <li>Création, modification et suppression propre d'un utilisateur (arrivée/départ)</li>
+              <li>Comprendre le catalogue de licences : Business Basic, Standard, Premium</li>
+              <li>Affecter, récupérer ou résilier des licences pour éliminer les coûts inutiles</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- BLOC 3 -->
+        <div class="prog-block">
+          <div class="prog-block-title">
+            <span class="block-num">3</span>
+            SharePoint, OneDrive & sécurité des données <span style="font-weight:400; font-size:.85rem;">(1h30)</span>
+          </div>
+
+          <div class="prog-slot">
+            <div class="prog-slot-time">13h30 – 15h00</div>
+            <div class="prog-slot-title">Structuration et sécurisation de SharePoint et OneDrive</div>
+            <ul>
+              <li>Gestion des bibliothèques de documents et droits d'accès au niveau des dossiers</li>
+              <li>Contrôle des accès externes : verrouiller ou autoriser le partage hors structure</li>
+              <li>Éliminer les risques de fuite de données sensibles (fichiers clients, comptabilité)</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- BLOC 4 -->
+        <div class="prog-block">
+          <div class="prog-block-title">
+            <span class="block-num">4</span>
+            Teams, groupes & maintenance <span style="font-weight:400; font-size:.85rem;">(2h00)</span>
+          </div>
+
+          <div class="prog-slot">
+            <div class="prog-slot-time">15h00 – 16h30</div>
+            <div class="prog-slot-title">Gestion des groupes et espaces Teams</div>
+            <ul>
+              <li>Création et administration des groupes de sécurité et listes de distribution</li>
+              <li>Configuration des canaux Teams (Publics vs Privés)</li>
+              <li>Gestion des invités externes pour collaborer de manière étanche</li>
+            </ul>
+          </div>
+
+          <div class="prog-slot">
+            <div class="prog-slot-time">16h30 – 17h00</div>
+            <div class="prog-slot-title">Bilan & check-list de maintenance mensuelle</div>
+            <ul>
+              <li>Routine de contrôle mensuel pour maintenir le tenant propre et sécurisé</li>
+              <li>Optimisation budgétaire à long terme</li>
+              <li>Synthèse des bonnes pratiques et plan d'action personnalisé</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- SIDEBAR -->
+      <aside class="prog-sidebar">
+
+        <div class="sidebar-card">
+          <div class="sidebar-card-title">Tarif & inscription</div>
+          <div class="sidebar-price">Sur devis</div>
+          <div class="sidebar-price-sub">HT · par stagiaire · 7 heures</div>
+          <ul class="sidebar-meta">
+            <li><span>Durée</span><strong>7 h (1 journée)</strong></li>
+            <li><span>Niveau</span><strong>Intermédiaire</strong></li>
+            <li><span>Prérequis</span><strong>Navigation web</strong></li>
+            <li><span>Format</span><strong>Distanciel</strong></li>
+            <li><span>Effectif</span><strong>1 à 8 personnes</strong></li>
+            <li><span>Tenant</span><strong>MTC Computing fourni</strong></li>
+            <li><span>Financement</span><strong>OPCO sur devis</strong></li>
+          </ul>
+          <a href="mailto:contact@mtc-computing.com?subject=Formation%20Microsoft%20365%20Tenant" class="sidebar-cta">
+            Demander un devis →
+          </a>
+        </div>
+
+        <div class="sidebar-card">
+          <div class="sidebar-card-title">Public cible</div>
+          <div class="sidebar-tags">
+            <span class="sidebar-tag">Freelances</span>
+            <span class="sidebar-tag">Indépendants</span>
+            <span class="sidebar-tag">Dirigeants TPE</span>
+            <span class="sidebar-tag">Responsables d'association</span>
+            <span class="sidebar-tag">Responsables d'équipe</span>
+            <span class="sidebar-tag">Propriétaires de site Teams</span>
+          </div>
+        </div>
+
+        <div class="sidebar-card">
+          <div class="sidebar-card-title">Outils & périmètre</div>
+          <div class="sidebar-tags">
+            <span class="sidebar-tag">Centre Admin M365</span>
+            <span class="sidebar-tag">MFA / Sécurité</span>
+            <span class="sidebar-tag">SharePoint Online</span>
+            <span class="sidebar-tag">OneDrive</span>
+            <span class="sidebar-tag">Teams</span>
+            <span class="sidebar-tag">Licences M365</span>
+            <span class="sidebar-tag">Accès externes</span>
+          </div>
+        </div>
+
+        <div class="sidebar-card">
+          <div class="sidebar-card-title">Organisme de formation</div>
+          <p style="font-size:.8rem; color:var(--muted,#666); line-height:1.6; margin:0;">
+            MTC Computing · NDA <strong style="color:var(--fg,#111);">7533164433</strong><br/>
+            SIREN 820 341 548<br/>
+            TVA non applicable — Art. 293 B CGI
+          </p>
+        </div>
+
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section class="contact-strip">
+  <div class="container">
+    <p class="section-label">Intéressé ?</p>
+    <h2 class="section-title">Demander un devis ou un programme complet</h2>
+    <p>Intra-entreprise ou inter-entreprises · Distanciel · Réponse sous 48 h.</p>
+    <div class="btn-group" style="justify-content:center; margin-top:2rem;">
+      <a href="mailto:contact@mtc-computing.com?subject=Formation%20Microsoft%20365" class="btn btn-primary">Demander un devis</a>
+      <a href="formations.html" class="btn btn-outline">← Retour aux formations</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <a href="index.html" class="footer-logo">MTC<span>.</span>Computing</a>
+    <span>SIREN 820 341 548 · NDA 7533164433</span>
+    <span>© 2025 MTC Computing</span>
+  </div>
+</footer>
+
+</body>
+</html>

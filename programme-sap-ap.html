@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Formation SAP AP Fournisseurs — MTC Computing</title>
+  <meta name="description" content="Formation SAP S/4HANA Comptabilité Fournisseurs (AP) & Business Partner — 7 heures, sur système IDES. MTC Computing NDA 7533164433." />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .prog-hero { padding: 4.5rem 0 3rem; border-bottom: 1px solid var(--border, #e2e2e2); }
+    .prog-hero .breadcrumb { font-size: .78rem; color: var(--muted, #888); margin-bottom: 1.5rem; }
+    .prog-hero .breadcrumb a { color: var(--muted, #888); text-decoration: none; }
+    .prog-hero .breadcrumb a:hover { color: var(--fg, #111); }
+    .prog-hero .breadcrumb span { margin: 0 .4rem; }
+    .prog-domain { font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #a07840; margin-bottom: .75rem; }
+    .prog-hero h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 700; line-height: 1.2; margin-bottom: 1rem; color: var(--fg, #111); }
+    .prog-hero h1 em { font-style: italic; color: #a07840; }
+    .prog-tagline { font-size: 1rem; color: var(--muted, #666); margin-bottom: 2rem; max-width: 600px; line-height: 1.6; }
+    .prog-summary { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 2rem; }
+    .summary-pill { display: flex; flex-direction: column; gap: .15rem; background: var(--surface, #f7f7f5); border: 1px solid var(--border, #e2e2e2); border-radius: 10px; padding: .75rem 1.25rem; min-width: 130px; }
+    .pill-label { font-size: .65rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted, #888); }
+    .pill-value { font-size: .95rem; font-weight: 700; color: var(--fg, #111); }
+    .pill-value.accent { color: #a07840; }
+    .prog-layout { display: grid; grid-template-columns: 1fr 300px; gap: 3rem; padding: 3rem 0 5rem; align-items: start; }
+    .prog-section-label { font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted, #888); margin-bottom: 1.5rem; }
+    .prog-block { margin-bottom: 2.5rem; }
+    .prog-block-title { font-size: 1.05rem; font-weight: 700; color: var(--fg, #111); margin-bottom: 1.25rem; padding-bottom: .6rem; border-bottom: 2px solid #a07840; display: flex; align-items: center; gap: .6rem; }
+    .prog-block-title .block-num { background: #a07840; color: #fff; font-size: .7rem; font-weight: 700; border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .prog-slot { margin-bottom: 1.25rem; padding-left: 1rem; border-left: 2px solid var(--border, #e2e2e2); }
+    .prog-slot-time { font-size: .72rem; font-weight: 700; color: #a07840; letter-spacing: .04em; margin-bottom: .3rem; }
+    .prog-slot-title { font-size: .92rem; font-weight: 700; color: var(--fg, #111); margin-bottom: .4rem; }
+    .prog-slot ul { list-style: none; padding: 0; margin: 0; }
+    .prog-slot ul li { font-size: .85rem; color: var(--muted, #555); line-height: 1.6; padding-left: 1rem; position: relative; }
+    .prog-slot ul li::before { content: '→'; position: absolute; left: 0; color: #a07840; font-size: .75rem; }
+    .prog-sidebar { position: sticky; top: 2rem; display: flex; flex-direction: column; gap: 1.25rem; }
+    .sidebar-card { background: var(--surface, #f7f7f5); border: 1px solid var(--border, #e2e2e2); border-radius: 12px; padding: 1.5rem; }
+    .sidebar-card-title { font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted, #888); margin-bottom: 1rem; }
+    .sidebar-price { font-size: 2rem; font-weight: 800; color: #a07840; line-height: 1; margin-bottom: .25rem; }
+    .sidebar-price-sub { font-size: .78rem; color: var(--muted, #888); margin-bottom: 1.25rem; }
+    .sidebar-meta li { display: flex; justify-content: space-between; font-size: .82rem; padding: .45rem 0; border-bottom: 1px solid var(--border, #e2e2e2); color: var(--muted, #555); }
+    .sidebar-meta li:last-child { border-bottom: none; }
+    .sidebar-meta li strong { color: var(--fg, #111); }
+    .sidebar-cta { display: block; text-align: center; background: #a07840; color: #fff; border-radius: 8px; padding: .8rem 1rem; font-size: .88rem; font-weight: 700; text-decoration: none; margin-top: 1.25rem; transition: opacity .2s; }
+    .sidebar-cta:hover { opacity: .85; }
+    .sidebar-tags { display: flex; flex-wrap: wrap; gap: .4rem; }
+    .sidebar-tag { font-size: .72rem; background: var(--bg, #fff); border: 1px solid var(--border, #e2e2e2); border-radius: 6px; padding: .25rem .6rem; color: var(--muted, #666); }
+    .tx-tag { display: inline-block; font-size: .7rem; background: #fff8f0; border: 1px solid #e8c99a; border-radius: 4px; padding: .15rem .5rem; color: #a07840; font-weight: 600; margin-left: .4rem; vertical-align: middle; }
+    @media (max-width: 768px) { .prog-layout { grid-template-columns: 1fr; } .prog-sidebar { position: static; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="assets/LOGO.png" alt="MTC Computing" style="height:114px;width:auto;" />
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html#about">Profil</a></li>
+      <li><a href="index.html#competences">Compétences</a></li>
+      <li><a href="index.html#experience">Réalisations</a></li>
+      <li><a href="index.html#content">YouTube</a></li>
+      <li><a href="articles.html">Articles</a></li>
+      <li><a href="formations.html">Offre de formation</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="prog-hero">
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="formations.html">Offre de formation</a>
+      <span>›</span>
+      SAP FI · Comptabilité Fournisseurs
+    </div>
+    <div class="prog-domain">SAP FI · AP · S/4HANA · ECC6</div>
+    <h1>SAP — Comptabilité Fournisseurs (AP)<br/><em>ECC6 & Business Partner S/4HANA</em></h1>
+    <p class="prog-tagline">
+      Maîtriser le cycle fournisseur de bout en bout dans SAP — de la création du Business Partner
+      à la clôture AP — sur système IDES S/4HANA 2023 en environnement réel.
+    </p>
+    <div class="prog-summary">
+      <div class="summary-pill">
+        <span class="pill-label">Durée</span>
+        <span class="pill-value">7 heures</span>
+      </div>
+      <div class="summary-pill">
+        <span class="pill-label">Tarif HT</span>
+        <span class="pill-value accent">Sur devis</span>
+      </div>
+      <div class="summary-pill">
+        <span class="pill-label">Niveau</span>
+        <span class="pill-value">Intermédiaire</span>
+      </div>
+      <div class="summary-pill">
+        <span class="pill-label">Prérequis</span>
+        <span class="pill-value">Comptabilité générale</span>
+      </div>
+      <div class="summary-pill">
+        <span class="pill-label">Format</span>
+        <span class="pill-value">1 journée</span>
+      </div>
+      <div class="summary-pill">
+        <span class="pill-label">Environnement</span>
+        <span class="pill-value">SAP IDES S/4HANA</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="prog-layout">
+
+      <div class="prog-main">
+        <p class="prog-section-label">Programme détaillé — 1 journée · 7 heures</p>
+
+        <!-- BLOC 1 -->
+        <div class="prog-block">
+          <div class="prog-block-title">
+            <span class="block-num">1</span>
+            Données de base sous S/4HANA <span style="font-weight:400; font-size:.85rem;">(2h00)</span>
+          </div>
+
+          <div class="prog-slot">
+            <div class="prog-slot-time">09h00 – 10h30</div>
+            <div class="prog-slot-title">Du fournisseur ECC au Business Partner (BP)</div>
+            <ul>
+              <li>Concept et structure du Business Partner (BP) dans S/4HANA</li>
+              <li>Attribution des rôles BP : Fournisseur (FI) vs Fournisseur (Achats)</li>
+              <li>Groupe de comptes, tranches de numéros et liaisons de données de base</li>
+            </ul>
+          </div>
+
+          <div class="prog-slot">
+            <div class="prog-slot-time">10h45 – 11h00</div>
+            <div class="prog-slot-title">Conditions et paramètres financiers du BP</div>
+            <ul>
+              <li>Configuration des conditions de paiement et modes de paiement</li>
+              <li>Gestion des banques partenaires et taxes à la source</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- BLOC 2 -->
+        <div class="prog-block">
+          <div class="prog-block-title">
+            <span class="block-num">2</span>
+            Opérations courantes & logique comptable <span style="font-weight:400; font-size:.85rem;">(2h30)</span>
+          </div>
+
+          <div class="prog-slot">
+            <div class="prog-slot-time">11h00 – 12h30</div>
+            <div class="prog-slot-title">Saisie et traitement des factures/avoirs <span class="tx-tag">FB60 · MIRO</span></div>
+            <ul>
+              <li>Enregistrement des factures directes (FI) via la transaction FB60</li>
+              <li>Enregistrement des factures avec référence commande (MM) via MIRO</li>
+              <li>Logique comptable : schémas d'écriture, clés de comptabilisation (31/21) et codes taxes</li>
+            </ul>
+          </div>
+
+          <div class="prog-slot">
+            <div class="prog-slot-time">13h30 – 14h30</div>
+            <div class="prog-slot-title">Gestion des écarts, ristournes et retenues de garantie</div>
+            <ul>
+              <li>Traitement des écarts de prix et de quantité lors du rapprochement facture/commande</li>
+              <li>Gestion des ristournes fournisseurs</li>
+              <li>Provisions pour factures non parvenues (FNP)</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- BLOC 3 -->
+        <div class="prog-block">
+          <div class="prog-block-title">
+            <span class="block-num">3</span>
+            Pilotage, relances & analyse des soldes <span style="font-weight:400; font-size:.85rem;">(2h30)</span>
+          </div>
+
+          <div class="prog-slot">
+            <div class="prog-slot-time">14h30 – 15h30</div>
+            <div class="prog-slot-title">Analyse des comptes et soldes par période <span class="tx-tag">FBL1N · FAGLL03</span></div>
+            <ul>
+              <li>Consultation et analyse des postes ouverts et lettrés via FBL1N / FAGLL03</li>
+              <li>Analyse des soldes fournisseurs par période comptable</li>
+            </ul>
+          </div>
+
+          <div class="prog-slot">
+            <div class="prog-slot-time">15h30 – 17h00</div>
+            <div class="prog-slot-title">Crédits, délais de paiement et procédure de relance <span class="tx-tag">F110</span></div>
+            <ul>
+              <li>Suivi des délais de paiement et gestion des blocages au paiement</li>
+              <li>Gestion des relances pour soldes débiteurs fournisseurs (avances/acomptes non régularisés)</li>
+              <li>Validation des acquis par un flux complet de bout en bout sur IDES</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- SIDEBAR -->
+      <aside class="prog-sidebar">
+
+        <div class="sidebar-card">
+          <div class="sidebar-card-title">Tarif & inscription</div>
+          <div class="sidebar-price">Sur devis</div>
+          <div class="sidebar-price-sub">HT · par stagiaire · 7 heures</div>
+          <ul class="sidebar-meta">
+            <li><span>Durée</span><strong>7 h (1 journée)</strong></li>
+            <li><span>Niveau</span><strong>Intermédiaire</strong></li>
+            <li><span>Prérequis</span><strong>Comptabilité générale</strong></li>
+            <li><span>Format</span><strong>Présentiel / Distanciel</strong></li>
+            <li><span>Effectif</span><strong>1 à 5 personnes</strong></li>
+            <li><span>Système</span><strong>SAP IDES S/4HANA 2023</strong></li>
+            <li><span>Financement</span><strong>OPCO sur devis</strong></li>
+          </ul>
+          <a href="mailto:contact@mtc-computing.com?subject=Formation%20SAP%20AP%20Fournisseurs" class="sidebar-cta">
+            Demander un devis →
+          </a>
+        </div>
+
+        <div class="sidebar-card">
+          <div class="sidebar-card-title">Public cible</div>
+          <div class="sidebar-tags">
+            <span class="sidebar-tag">Comptables</span>
+            <span class="sidebar-tag">Contrôleurs de gestion</span>
+            <span class="sidebar-tag">Responsables Achats</span>
+            <span class="sidebar-tag">Business Analystes</span>
+            <span class="sidebar-tag">Consultants juniors SAP</span>
+          </div>
+        </div>
+
+        <div class="sidebar-card">
+          <div class="sidebar-card-title">Transactions couvertes</div>
+          <div class="sidebar-tags">
+            <span class="sidebar-tag">FB60</span>
+            <span class="sidebar-tag">MIRO</span>
+            <span class="sidebar-tag">FBL1N</span>
+            <span class="sidebar-tag">FAGLL03</span>
+            <span class="sidebar-tag">F110</span>
+            <span class="sidebar-tag">Business Partner</span>
+            <span class="sidebar-tag">IDES S/4HANA</span>
+          </div>
+        </div>
+
+        <div class="sidebar-card">
+          <div class="sidebar-card-title">Organisme de formation</div>
+          <p style="font-size:.8rem; color:var(--muted,#666); line-height:1.6; margin:0;">
+            MTC Computing · NDA <strong style="color:var(--fg,#111);">7533164433</strong><br/>
+            SIREN 820 341 548<br/>
+            TVA non applicable — Art. 293 B CGI
+          </p>
+        </div>
+
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section class="contact-strip">
+  <div class="container">
+    <p class="section-label">Intéressé ?</p>
+    <h2 class="section-title">Demander un devis ou un programme complet</h2>
+    <p>Intra-entreprise ou inter-entreprises · Présentiel ou distanciel · Réponse sous 48 h.</p>
+    <div class="btn-group" style="justify-content:center; margin-top:2rem;">
+      <a href="mailto:contact@mtc-computing.com?subject=Formation%20SAP%20AP%20Fournisseurs" class="btn btn-primary">Demander un devis</a>
+      <a href="formations.html" class="btn btn-outline">← Retour aux formations</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <a href="index.html" class="footer-logo">MTC<span>.</span>Computing</a>
+    <span>SIREN 820 341 548 · NDA 7533164433</span>
+    <span>© 2025 MTC Computing</span>
+  </div>
+</footer>
+
+</body>
+</html>
