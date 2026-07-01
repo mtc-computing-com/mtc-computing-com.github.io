@@ -75,10 +75,238 @@
     </div>
   </div>
 </section>
-<!-- Le reste du code (sections about, competences, experience, etc.) est inchangé -->
 <section id="about">
-  ... (le reste de ton code original reste identique)
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-left">
+        <div class="about-photo-placeholder">
+          <img src="assets/photo.jpg" alt="Moez L'Agha" style="width:100%;max-width:260px;" />
+        </div>
+        <div class="about-name">Moez L'Agha</div>
+        <div class="about-role">Consultant SAP FICO · Formateur IT</div>
+        <ul class="about-meta">
+          <li><span>Localisation :</span> Paris, France</li>
+          <li><span>Disponibilité :</span> Immédiate</li>
+          <li><span>Statut :</span> Freelance · Consulting · Training</li>
+        </ul>
+        <a href="mailto:contact@mtc-computing.com?subject=Demande%20de%20CV&body=Bonjour%2C%20je%20souhaite%20recevoir%20votre%20CV." class="btn btn-outline">
+          Demander le CV →
+        </a>
+      </div>
+      <div class="about-text">
+        <p class="section-label">À propos</p>
+        <p>
+          Consultant SAP FICO opérationnel sur l'ensemble du périmètre FI-CO —
+          paramétrage SPRO, cycles P2P, O2C, R2R, clôture périodique et annuelle,
+          intégrations FI-MM et FI-SD.
+        </p>
+        <p>
+          Dix ans passés dans les secteurs banque et assurance (AXA, La Banque Postale,
+          BNP Paribas, Groupama) donnent une lecture terrain des processus financiers
+          que le paramétrage doit refléter fidèlement.
+        </p>
+        <p>
+          Titulaire d'un DEA en Linguistique Informatique (EHESS, 2003), je produis
+          également du contenu pédagogique SAP sur YouTube, publie des runbooks
+          techniques sur GitHub et dispense des formations IT professionnelles.
+        </p>
+        <a href="contact.html" class="btn btn-outline" style="margin-top:1rem;">Discuter d'une mission →</a>
+      </div>
+    </div>
+  </div>
 </section>
-<!-- ... et ainsi de suite jusqu'au footer -->
+<section id="competences" class="skills-section">
+  <div class="container">
+    <p class="section-label">Compétences SAP</p>
+    <h2 class="section-title">Périmètre FI-CO</h2>
+    <div class="skills-grid">
+      <div class="skill-block">
+        <div class="skill-block-title">Finance (FI)</div>
+        <ul class="skill-list">
+          <li>GL — Comptabilité générale</li>
+          <li>AP — Fournisseurs</li>
+          <li>AR — Clients</li>
+          <li>AA — Immobilisations (AuC / AFAB)</li>
+          <li>Fiscalité (TVA, TAXFR, FTXP)</li>
+          <li>Clôture périodique</li>
+          <li>FBCJ — Caisse</li>
+          <li>F110 — Paiements automatiques</li>
+        </ul>
+      </div>
+      <div class="skill-block">
+        <div class="skill-block-title">Controlling (CO)</div>
+        <ul class="skill-list">
+          <li>CCA — Centres de coûts</li>
+          <li>CO-PA — Rentabilité</li>
+          <li>Internal Orders</li>
+          <li>ACDOCA — Ledger universel</li>
+          <li>Ledgers parallèles</li>
+          <li>OBYC — Détermination automatique</li>
+          <li>Clôture CO / allocations</li>
+        </ul>
+      </div>
+      <div class="skill-block">
+        <div class="skill-block-title">Technique & Intégrations</div>
+        <ul class="skill-list">
+          <li>SPRO — Customizing IMG</li>
+          <li>MDC · SE16N · SE11</li>
+          <li>IDoc / ALE · GuiXT</li>
+          <li>FI-MM / FI-SD Intégrations</li>
+          <li>SST0 · SCU0 · SPRO_ADMIN</li>
+          <li>Fiori Apps</li>
+          <li>LSMW · BAPI</li>
+        </ul>
+      </div>
+      <div class="skill-block">
+        <div class="skill-block-title">Processus Métiers</div>
+        <ul class="skill-list">
+          <li>P2P — Procure to Pay</li>
+          <li>O2C — Order to Cash</li>
+          <li>R2R — Record to Report</li>
+          <li>D2P — Design to Produce</li>
+          <li>H2R — Hire to Retire</li>
+        </ul>
+      </div>
+      <div class="skill-block">
+        <div class="skill-block-title">Secteurs & Référentiels</div>
+        <ul class="skill-list">
+          <li>Banque & Assurance</li>
+          <li>LCB-FT / Conformité</li>
+          <li>OHADA / Plan comptable XAF</li>
+          <li>IFRS / Normes françaises</li>
+          <li>Gestion de projets SI</li>
+        </ul>
+      </div>
+      <div class="skill-block">
+        <div class="skill-block-title">Compétences complémentaires</div>
+        <ul class="skill-list">
+          <li>Infrastructure VMware / Proxmox</li>
+          <li>Kubernetes / Docker</li>
+          <li>Azure / Microsoft 365</li>
+          <li>Français · Anglais · Arabe</li>
+          <li>Formation & documentation</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="experience">
+  <div class="container">
+    <p class="section-label">Réalisations</p>
+    <h2 class="section-title">Réalisations techniques</h2>
+    <ul class="exp-list">
+      <li class="exp-item">
+        <div class="exp-date">SAP FICO</div>
+        <div class="exp-body">
+          <div class="exp-body-title">Montage société SAP & clôture périodique</div>
+          <div class="exp-body-company">Environnement SAP IDES</div>
+          <div class="exp-body-desc">
+            Création et paramétrage complet d'une société sur système SAP IDES —
+            structure organisationnelle FI-CO, gestion des habilitations (rôles/profils),
+            mise en place et pilotage du processus de clôture périodique, mensuelle et annuelle.
+          </div>
+        </div>
+      </li>
+      <li class="exp-item">
+        <div class="exp-date">Formation</div>
+        <div class="exp-body">
+          <div class="exp-body-title">Formation FI-AA — S/4HANA & ECC6</div>
+          <div class="exp-body-company">MTC Computing · 3 jours</div>
+          <div class="exp-body-desc">
+            Animation d'une formation de 3 jours sur la comptabilité des immobilisations (FI-AA)
+            couvrant les deux environnements S/4HANA et ECC6 — création de fiches d'immobilisation,
+            AuC, AFAB, AW01N, bascule en immobilisation définitive.
+            Public : consultants juniors et équipes finance.
+          </div>
+        </div>
+      </li>
+      <li class="exp-item">
+        <div class="exp-date">Infrastructure</div>
+        <div class="exp-body">
+          <div class="exp-body-title">Audit & montage d'une architecture virtualisée VMware</div>
+          <div class="exp-body-company">Environnement SSH / vCenter</div>
+          <div class="exp-body-desc">
+            Audit d'une installation VMware en cours de déploiement et montage d'une infrastructure
+            virtualisée complète — environnement SSH / vCenter, configuration cluster ESXi,
+            mise en réseau et validation de l'architecture.
+          </div>
+        </div>
+      </li>
+      <li class="exp-item">
+        <div class="exp-date">GED</div>
+        <div class="exp-body">
+          <div class="exp-body-title">Déploiement d'un poste de numérisation GED centralisé</div>
+          <div class="exp-body-company">Environnement tertiaire</div>
+          <div class="exp-body-desc">
+            Déploiement d'un poste de numérisation centralisé (scanner + écran dédié)
+            dans le cadre d'une chaîne GED en environnement tertiaire.
+            Intégration dans le flux documentaire existant, recette et mise en production.
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+<section id="content" class="youtube-section">
+  <div class="container">
+    <div class="youtube-inner">
+      <div class="youtube-text">
+        <p class="section-label">Contenu pédagogique</p>
+        <h2 class="section-title">MTC Computing<br/>sur YouTube</h2>
+        <p class="youtube-desc">
+          Vidéos techniques sur la configuration SAP S/4HANA :
+          IMG, customizing FI-CO, SST0, SCU0, SPRO_ADMIN.
+          Contenu pensé pour les consultants et étudiants SAP,
+          en lien avec les articles LinkedIn et les runbooks GitHub.
+        </p>
+        <div class="btn-group">
+          <a href="https://www.youtube.com/@MTC-Computing" target="_blank" rel="noopener" class="btn btn-primary">
+            Voir la chaîne →
+          </a>
+          <a href="https://www.linkedin.com/in/moez-l-agha-b020032b5" target="_blank" rel="noopener" class="btn btn-outline">
+            LinkedIn
+          </a>
+        </div>
+      </div>
+      <div class="youtube-visual">
+        <a href="https://www.youtube.com/@MTC-Computing" target="_blank" rel="noopener" class="play-btn" aria-label="Voir la chaîne YouTube">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28">
+            <path d="M8 5v14l11-7z"/>
+          </svg>
+        </a>
+        <span class="youtube-label">MTC Computing · SAP S/4HANA</span>
+      </div>
+    </div>
+    <a href="https://github.com/Moez-FinTech" target="_blank" rel="noopener" class="social-link" style="margin-top:2rem;">
+      <svg viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+      </svg>
+      GitHub — Moez-FinTech
+    </a>
+  </div>
+</section>
+<section class="contact-strip">
+  <div class="container">
+    <p class="section-label">Disponible</p>
+    <h2 class="section-title">Une mission ou une formation ?</h2>
+    <p>Freelance consulting & training — Paris, Île-de-France et déplacement.<br/>Réponse sous 24 h.</p>
+    <div class="btn-group" style="justify-content:center; margin-top:2rem;">
+      <a href="contact.html" class="btn btn-primary">Me contacter</a>
+      <a href="formations.html" class="btn btn-outline">Offre de formation →</a>
+    </div>
+    <p style="font-size:0.72rem; color:var(--muted); margin-top:2rem; line-height:1.6;">
+      Les informations recueillies sont utilisées uniquement pour répondre à votre demande.
+      Conformément au RGPD, vous disposez d'un droit d'accès et de suppression :
+      <a href="mailto:contact@mtc-computing.com" style="color:var(--fg);">contact@mtc-computing.com</a>
+    </p>
+  </div>
+</section>
+<footer>
+  <div class="footer-inner">
+    <a href="index.html" class="footer-logo">MTC<span>.</span>Computing</a>
+    <span>SIREN 820 341 548 · NDA 7533164433</span>
+    <span>© 2025 MTC Computing</span>
+  </div>
+</footer>
 </body>
 </html>
