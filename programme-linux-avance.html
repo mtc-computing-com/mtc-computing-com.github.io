@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Formation Linux Serveur — Administration & Déploiement — MTC Computing</title>
+  <meta name="description" content="Formation Linux Serveur 21h — SSH, Docker, Nginx, Fail2ban, cron. Administration complète Ubuntu Server 22.04. MTC Computing NDA 7533164433." />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .prog-hero { padding: 4.5rem 0 3rem; border-bottom: 1px solid var(--border, #e2e2e2); }
+    .prog-hero .breadcrumb { font-size: .78rem; color: var(--muted, #888); margin-bottom: 1.5rem; }
+    .prog-hero .breadcrumb a { color: var(--muted, #888); text-decoration: none; }
+    .prog-hero .breadcrumb a:hover { color: var(--fg, #111); }
+    .prog-hero .breadcrumb span { margin: 0 .4rem; }
+    .prog-domain { font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #2d7a50; margin-bottom: .75rem; }
+    .prog-hero h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 700; line-height: 1.2; margin-bottom: 1rem; color: var(--fg, #111); }
+    .prog-hero h1 em { font-style: italic; color: #2d7a50; }
+    .prog-tagline { font-size: 1rem; color: var(--muted, #666); margin-bottom: 2rem; max-width: 600px; line-height: 1.6; }
+    .prog-summary { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 2rem; }
+    .summary-pill { display: flex; flex-direction: column; gap: .15rem; background: var(--surface, #f7f7f5); border: 1px solid var(--border, #e2e2e2); border-radius: 10px; padding: .75rem 1.25rem; min-width: 130px; }
+    .pill-label { font-size: .65rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted, #888); }
+    .pill-value { font-size: .95rem; font-weight: 700; color: var(--fg, #111); }
+    .pill-value.accent { color: #2d7a50; }
+    .prog-layout { display: grid; grid-template-columns: 1fr 300px; gap: 3rem; padding: 3rem 0 5rem; align-items: start; }
+    .prog-section-label { font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted, #888); margin-bottom: 1.5rem; }
+    .prog-block { margin-bottom: 2.5rem; }
+    .prog-block-title { font-size: 1.05rem; font-weight: 700; color: var(--fg, #111); margin-bottom: 1.25rem; padding-bottom: .6rem; border-bottom: 2px solid #2d7a50; display: flex; align-items: center; gap: .6rem; }
+    .prog-block-title .block-num { background: #2d7a50; color: #fff; font-size: .7rem; font-weight: 700; border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .prog-slot { margin-bottom: 1.25rem; padding-left: 1rem; border-left: 2px solid var(--border, #e2e2e2); }
+    .prog-slot-time { font-size: .72rem; font-weight: 700; color: #2d7a50; letter-spacing: .04em; margin-bottom: .3rem; }
+    .prog-slot-title { font-size: .92rem; font-weight: 700; color: var(--fg, #111); margin-bottom: .4rem; }
+    .prog-slot ul { list-style: none; padding: 0; margin: 0; }
+    .prog-slot ul li { font-size: .85rem; color: var(--muted, #555); line-height: 1.6; padding-left: 1rem; position: relative; }
+    .prog-slot ul li::before { content: '→'; position: absolute; left: 0; color: #2d7a50; font-size: .75rem; }
+    .prog-sidebar { position: sticky; top: 2rem; display: flex; flex-direction: column; gap: 1.25rem; }
+    .sidebar-card { background: var(--surface, #f7f7f5); border: 1px solid var(--border, #e2e2e2); border-radius: 12px; padding: 1.5rem; }
+    .sidebar-card-title { font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted, #888); margin-bottom: 1rem; }
+    .sidebar-price { font-size: 2rem; font-weight: 800; color: #2d7a50; line-height: 1; margin-bottom: .25rem; }
+    .sidebar-price-sub { font-size: .78rem; color: var(--muted, #888); margin-bottom: 1.25rem; }
+    .sidebar-meta li { display: flex; justify-content: space-between; font-size: .82rem; padding: .45rem 0; border-bottom: 1px solid var(--border, #e2e2e2); color: var(--muted, #555); }
+    .sidebar-meta li:last-child { border-bottom: none; }
+    .sidebar-meta li strong { color: var(--fg, #111); }
+    .sidebar-cta { display: block; text-align: center; background: #2d7a50; color: #fff; border-radius: 8px; padding: .8rem 1rem; font-size: .88rem; font-weight: 700; text-decoration: none; margin-top: 1.25rem; transition: opacity .2s; }
+    .sidebar-cta:hover { opacity: .85; }
+    .sidebar-tags { display: flex; flex-wrap: wrap; gap: .4rem; }
+    .sidebar-tag { font-size: .72rem; background: var(--bg, #fff); border: 1px solid var(--border, #e2e2e2); border-radius: 6px; padding: .25rem .6rem; color: var(--muted, #666); }
+    .eval-block { background: var(--surface, #f7f7f5); border: 1px solid var(--border, #e2e2e2); border-left: 3px solid #2d7a50; border-radius: 8px; padding: 1.25rem 1.5rem; margin-top: 2rem; }
+    .eval-block-title { font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; color: #2d7a50; margin-bottom: .75rem; }
+    .eval-block ul { list-style: none; padding: 0; margin: 0; }
+    .eval-block ul li { font-size: .85rem; color: var(--muted, #555); line-height: 1.65; padding-left: 1rem; position: relative; margin-bottom: .3rem; }
+    .eval-block ul li::before { content: '✓'; position: absolute; left: 0; color: #2d7a50; font-weight: 700; }
+    @media (max-width: 768px) { .prog-layout { grid-template-columns: 1fr; } .prog-sidebar { position: static; } }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="assets/LOGO.png" alt="MTC Computing" style="height:114px;width:auto;" />
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html#about">Profil</a></li>
+      <li><a href="index.html#experience">Hands On Lab</a></li>
+      <li><a href="index.html#content">YouTube</a></li>
+      <li><a href="articles.html">Articles</a></li>
+      <li><a href="formations.html">Offre de formation</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="prog-hero">
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="formations.html">Offre de formation</a>
+      <span>›</span>
+      Linux · Serveur · Avancé
+    </div>
+    <div class="prog-domain">Linux Serveur · SSH · Docker · Nginx · Sécurité</div>
+    <h1>Linux Serveur —<br/><em>Administration &amp; Déploiement d'Applications</em></h1>
+    <p class="prog-tagline">
+      Acquérir une autonomie complète sur un serveur Linux headless — accès SSH sécurisé,
+      services web, conteneurisation Docker, pare-feu et automatisation —
+      sur machine virtuelle Ubuntu Server 22.04 LTS en environnement 100 % pratique.
+    </p>
+    <div class="prog-summary">
+      <div class="summary-pill"><span class="pill-label">Durée</span><span class="pill-value">21 heures</span></div>
+      <div class="summary-pill"><span class="pill-label">Tarif HT</span><span class="pill-value accent">1 360 €</span></div>
+      <div class="summary-pill"><span class="pill-label">Niveau</span><span class="pill-value">Initié</span></div>
+      <div class="summary-pill"><span class="pill-label">Prérequis</span><span class="pill-value">Terminal de base</span></div>
+      <div class="summary-pill"><span class="pill-label">Format</span><span class="pill-value">3 journées</span></div>
+      <div class="summary-pill"><span class="pill-label">Méthode</span><span class="pill-value">100 % pratique</span></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="prog-layout">
+      <div class="prog-main">
+        <p class="prog-section-label">Programme détaillé — 3 journées · 21 heures</p>
+
+        <div class="prog-block">
+          <div class="prog-block-title"><span class="block-num">1</span>Jour 1 — Fondamentaux du système &amp; accès distant</div>
+          <div class="prog-slot">
+            <div class="prog-slot-time">09h00 – 10h30</div>
+            <div class="prog-slot-title">Installation &amp; découverte de la structure du serveur</div>
+            <ul>
+              <li>Rôle d'un serveur headless — importation VM et première connexion console</li>
+              <li>Arborescence unifiée Linux : /home, /etc, /var, /tmp, /usr, /opt</li>
+              <li>Chemins absolus et relatifs — premières commandes de navigation</li>
+            </ul>
+          </div>
+          <div class="prog-slot">
+            <div class="prog-slot-time">10h45 – 12h30</div>
+            <div class="prog-slot-title">Manipulation des fichiers et dossiers</div>
+            <ul>
+              <li>Création, copie, déplacement, suppression de fichiers et répertoires</li>
+              <li>Consultation et édition avec nano — arborescence personnelle de projets</li>
+              <li>Fichiers cachés et liens symboliques</li>
+            </ul>
+          </div>
+          <div class="prog-slot">
+            <div class="prog-slot-time">13h30 – 15h00</div>
+            <div class="prog-slot-title">Permissions &amp; sécurité des accès</div>
+            <ul>
+              <li>Droits lecture/écriture/exécution — trois classes d'utilisateurs</li>
+              <li>chmod en notation symbolique et octale (755, 644, 600)</li>
+              <li>chown — sécurisation fichier de config, répertoire public, clé privée</li>
+            </ul>
+          </div>
+          <div class="prog-slot">
+            <div class="prog-slot-time">15h15 – 17h00</div>
+            <div class="prog-slot-title">Accès distant sécurisé — SSH</div>
+            <ul>
+              <li>Installation et activation du serveur SSH</li>
+              <li>Génération d'une paire de clés asymétriques Ed25519</li>
+              <li>Désactivation de l'authentification par mot de passe</li>
+              <li>Changement du port d'écoute — refus de l'accès root à distance</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="prog-block">
+          <div class="prog-block-title"><span class="block-num">2</span>Jour 2 — Services, logs, réseau &amp; sécurité</div>
+          <div class="prog-slot">
+            <div class="prog-slot-time">09h00 – 10h30</div>
+            <div class="prog-slot-title">Gestion des paquets &amp; services applicatifs</div>
+            <ul>
+              <li>Mise à jour système — installation Nginx</li>
+              <li>Cycle de vie des services avec systemd (start, stop, enable)</li>
+              <li>Page d'accueil personnalisée — vérification depuis le navigateur hôte</li>
+            </ul>
+          </div>
+          <div class="prog-slot">
+            <div class="prog-slot-time">10h45 – 12h30</div>
+            <div class="prog-slot-title">Lecture &amp; filtrage des journaux (logs)</div>
+            <ul>
+              <li>Localisation des logs système et applicatifs</li>
+              <li>Consultation temps réel avec tail -f — recherche avec grep et pipe</li>
+              <li>Simulation panne (erreur 404) et résolution par les traces</li>
+            </ul>
+          </div>
+          <div class="prog-slot">
+            <div class="prog-slot-time">13h30 – 15h00</div>
+            <div class="prog-slot-title">Diagnostic réseau &amp; gestion des ports</div>
+            <ul>
+              <li>Interfaces réseau, adresses IP, ping</li>
+              <li>Ports ouverts avec ss -tulpn — ports standards SSH/HTTP/HTTPS</li>
+              <li>Second virtualhost Nginx sur port personnalisé (8080)</li>
+            </ul>
+          </div>
+          <div class="prog-slot">
+            <div class="prog-slot-time">15h15 – 17h00</div>
+            <div class="prog-slot-title">Pare-feu &amp; protection contre les intrusions</div>
+            <ul>
+              <li>ufw — règles restrictives : SSH, HTTP, HTTPS uniquement</li>
+              <li>Fail2ban — blocage automatique des tentatives de force brute SSH</li>
+              <li>Tests de résistance et validation après redémarrage</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="prog-block">
+          <div class="prog-block-title"><span class="block-num">3</span>Jour 3 — Conteneurs, automatisation &amp; projet de synthèse</div>
+          <div class="prog-slot">
+            <div class="prog-slot-time">09h00 – 10h30</div>
+            <div class="prog-slot-title">Introduction aux conteneurs avec Docker</div>
+            <ul>
+              <li>Isolation, portabilité, légèreté — installation Docker</li>
+              <li>Commandes fondamentales : images, conteneurs, logs, arrêt, suppression</li>
+              <li>Conteneur Nginx exposé sur port dédié</li>
+            </ul>
+          </div>
+          <div class="prog-slot">
+            <div class="prog-slot-time">10h45 – 12h30</div>
+            <div class="prog-slot-title">Déploiement d'une application multi-conteneurs</div>
+            <ul>
+              <li>Docker Compose — écriture docker-compose.yml (web + MySQL)</li>
+              <li>Volumes persistants — lancement et arrêt en une commande</li>
+              <li>Vérification depuis le navigateur</li>
+            </ul>
+          </div>
+          <div class="prog-slot">
+            <div class="prog-slot-time">13h30 – 15h00</div>
+            <div class="prog-slot-title">Automatisation &amp; scripts de sauvegarde</div>
+            <ul>
+              <li>Script bash : archivage logs et sauvegarde données conteneurs</li>
+              <li>Planification avec cron — journal de traçabilité</li>
+              <li>Validation du bon fonctionnement</li>
+            </ul>
+          </div>
+          <div class="prog-slot">
+            <div class="prog-slot-time">15h15 – 17h00</div>
+            <div class="prog-slot-title">Projet de synthèse — Machine vierge en autonomie</div>
+            <ul>
+              <li>SSH avec clé + durcissement pare-feu depuis zéro</li>
+              <li>Application conteneurisée accessible de l'extérieur</li>
+              <li>Sauvegarde automatique opérationnelle</li>
+              <li>Correction collective et retour sur bonnes pratiques</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="eval-block">
+          <div class="eval-block-title">Critères de réussite</div>
+          <ul>
+            <li>Serveur accessible en SSH sans mot de passe</li>
+            <li>Application web opérationnelle sur le port autorisé</li>
+            <li>Pare-feu actif et persistant après redémarrage</li>
+            <li>Tâche cron générant des traces vérifiables</li>
+            <li>Capacité à consulter les logs pour diagnostiquer une panne</li>
+          </ul>
+        </div>
+      </div>
+
+      <aside class="prog-sidebar">
+        <div class="sidebar-card">
+          <div class="sidebar-card-title">Tarif & inscription</div>
+          <div class="sidebar-price">1 360 €</div>
+          <div class="sidebar-price-sub">HT · par stagiaire · 21 heures</div>
+          <ul class="sidebar-meta">
+            <li><span>Durée</span><strong>21 h (3 jours)</strong></li>
+            <li><span>Niveau</span><strong>Initié</strong></li>
+            <li><span>Prérequis</span><strong>Terminal de base</strong></li>
+            <li><span>Format</span><strong>Présentiel / Distanciel</strong></li>
+            <li><span>Effectif</span><strong>1 à 8 personnes</strong></li>
+            <li><span>VM fournie</span><strong>Ubuntu Server 22.04 .ova</strong></li>
+            <li><span>Financement</span><strong>OPCO sur devis</strong></li>
+          </ul>
+          <a href="mailto:contact@mtc-computing.com?subject=Formation%20Linux%20Serveur%20Avancé" class="sidebar-cta">Demander un devis →</a>
+        </div>
+        <div class="sidebar-card">
+          <div class="sidebar-card-title">Public cible</div>
+          <div class="sidebar-tags">
+            <span class="sidebar-tag">Techniciens IT</span>
+            <span class="sidebar-tag">Admins systèmes M365</span>
+            <span class="sidebar-tag">Chefs de projet techniques</span>
+            <span class="sidebar-tag">Gouvernance open source</span>
+            <span class="sidebar-tag">Profils reconversion DevOps</span>
+          </div>
+        </div>
+        <div class="sidebar-card">
+          <div class="sidebar-card-title">Technologies couvertes</div>
+          <div class="sidebar-tags">
+            <span class="sidebar-tag">Ubuntu Server 22.04</span>
+            <span class="sidebar-tag">SSH / Ed25519</span>
+            <span class="sidebar-tag">Nginx</span>
+            <span class="sidebar-tag">Docker</span>
+            <span class="sidebar-tag">Docker Compose</span>
+            <span class="sidebar-tag">UFW</span>
+            <span class="sidebar-tag">Fail2ban</span>
+            <span class="sidebar-tag">cron</span>
+            <span class="sidebar-tag">systemd</span>
+          </div>
+        </div>
+        <div class="sidebar-card">
+          <div class="sidebar-card-title">Ressources fournies</div>
+          <div class="sidebar-tags">
+            <span class="sidebar-tag">VM Ubuntu Server .ova</span>
+            <span class="sidebar-tag">Commandes copier-coller</span>
+            <span class="sidebar-tag">Serveur partagé exercices</span>
+            <span class="sidebar-tag">Templates Docker Compose</span>
+          </div>
+        </div>
+        <div class="sidebar-card">
+          <div class="sidebar-card-title">Organisme de formation</div>
+          <p style="font-size:.8rem; color:var(--muted,#666); line-height:1.6; margin:0;">
+            MTC Computing · NDA <strong style="color:var(--fg,#111);">7533164433</strong><br/>
+            SIREN 820 341 548<br/>
+            TVA non applicable — Art. 293 B CGI
+          </p>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section class="contact-strip">
+  <div class="container">
+    <p class="section-label">Intéressé ?</p>
+    <h2 class="section-title">Demander un devis ou un programme complet</h2>
+    <p>Intra-entreprise ou inter-entreprises · Présentiel ou distanciel · Réponse sous 48 h.</p>
+    <div class="btn-group" style="justify-content:center; margin-top:2rem;">
+      <a href="mailto:contact@mtc-computing.com?subject=Formation%20Linux%20Serveur" class="btn btn-primary">Demander un devis</a>
+      <a href="formations.html" class="btn btn-outline">← Retour aux formations</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <a href="index.html" class="footer-logo">MTC<span>.</span>Computing</a>
+    <span>SIREN 820 341 548 · NDA 7533164433</span>
+    <span>© 2025 MTC Computing</span>
+  </div>
+</footer>
+
+</body>
+</html>
