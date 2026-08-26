@@ -102,35 +102,6 @@ nav {
 .nav-links a.active { color: var(--fg); }
 
 /* ── Hero ────────────────────────────────── */
-<section class="hero" style="padding: 80px 0 60px;">
-  <div class="container">
-    <div class="hero-grid">
-      
-      <!-- COLONNE GAUCHE : texte (déjà existant) -->
-      <div class="hero-left">
-        <div class="hero-eyebrow fade-up fade-up-d1">Consultant SAP FICO · Formateur IT indépendant</div>
-        <h1 class="hero-title fade-up fade-up-d2" style="font-size: 2.1rem; margin: 15px 0 12px;">
-          SAP FICO<br/>
-          <em>Paramétrage & Formations Pratiques</em>
-        </h1>
-        <p class="hero-subtitle fade-up fade-up-d3">
-          Freelance disponible immédiatement pour missions paramétrage FI-CO / AMOA S/4HANA.<br/>
-          Formations IT concrètes (Linux, SAP) en présentiel ou à distance.<br/>
-          Paris / Île-de-France ou déplacement.
-        </p>
-        <!-- Vos boutons CTA ici si vous en avez -->
-      </div>
-
-      <!-- COLONNE DROITE : photo (nouveau) -->
-      <div class="hero-right fade-up fade-up-d2">
-        <img src="images/moez-lagha-consultant-sap-fico.webp" 
-             alt="Moez L'Agha, consultant SAP FICO et formateur IT" 
-             class="hero-photo" />
-      </div>
-
-    </div>
-  </div>
-</section>
 .hero {
   padding: var(--space-xl) 0;
   border-bottom: 1px solid var(--border);
