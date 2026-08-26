@@ -701,83 +701,52 @@ footer {
 
   .nav-links { display: none; }
 }
-/* ===== HANDS ON LAB ===== */
-.lab-list {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
+/* ===== HANDS ON LAB — dépliants ===== */
+.project-details {
   width: 100%;
 }
 
-.lab-item {
-  background: var(--white);
-  border: 1px solid var(--border);
-  padding: 2rem;
-  width: 100%;
-  transition: border-color var(--transition);
-}
-
-.lab-item[open] {
-  border-color: var(--accent);
-}
-
-.lab-summary {
+.project-summary {
   list-style: none;
   cursor: pointer;
   display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+  align-items: flex-start;
+  gap: 20px;
   width: 100%;
 }
 
-.lab-summary::-webkit-details-marker,
-.lab-summary::marker {
+/* Cache la flèche native */
+.project-summary::-webkit-details-marker {
   display: none;
 }
 
-.lab-category {
-  font-size: 0.72rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--accent);
-}
-
-.lab-title {
-  font-family: var(--serif);
-  font-size: 1.8rem;
-  font-weight: 300;
-  color: var(--fg);
-  line-height: 1.2;
-}
-
-.lab-subtitle {
-  font-size: 0.8rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
-.lab-excerpt {
-  font-size: 0.95rem;
-  color: #555;
-  margin-top: 0.5rem;
-  line-height: 1.6;
-}
-
-/* Contenu déplié */
-.lab-content {
-  margin-top: 1.5rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid var(--border);
+/* ⬇️ CONTENU DÉPLIÉ : pleine largeur, sous le résumé */
+.project-full {
+  width: 100%;
+  padding: 20px 0 10px 0;
+  margin-top: 15px;
+  border-top: 1px solid rgba(212, 175, 55, 0.2);
   animation: fadeIn 0.3s ease;
 }
 
-.lab-content p {
-  font-size: 1rem;
-  color: #333;
-  line-height: 1.8;
-  margin-bottom: 1rem;
-  max-width: 100%;
+.project-full p {
+  margin-bottom: 12px;
+  line-height: 1.7;
+  max-width: none; /* annule toute limite de largeur héritée */
+  width: 100%;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .project-summary {
+    flex-direction: column;
+    gap: 10px;
+  }
 }
 
 .lab-content .btn {
