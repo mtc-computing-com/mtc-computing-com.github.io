@@ -715,23 +715,25 @@ footer {
   width: 100%;
 }
 
-/* Cache la flèche native du navigateur */
+/* Cache la flèche native */
 .project-summary::-webkit-details-marker {
   display: none;
 }
 
+/* ⬇️ CONTENU DÉPLIÉ : pleine largeur, sous le résumé */
 .project-full {
+  width: 100%;
   padding: 20px 0 10px 0;
   margin-top: 15px;
-  border-left: 3px solid #d4af37;
-  padding-left: 20px;
-  margin-left: 100px; /* aligné sous le texte */
+  border-top: 1px solid rgba(212, 175, 55, 0.2);
   animation: fadeIn 0.3s ease;
 }
 
 .project-full p {
   margin-bottom: 12px;
   line-height: 1.7;
+  max-width: none; /* annule toute limite de largeur héritée */
+  width: 100%;
 }
 
 @keyframes fadeIn {
@@ -741,8 +743,8 @@ footer {
 
 /* Responsive */
 @media (max-width: 768px) {
-  .project-full {
-    margin-left: 0;
-    padding-left: 15px;
+  .project-summary {
+    flex-direction: column;
+    gap: 10px;
   }
 }
