@@ -704,25 +704,26 @@ footer {
 /* ===== HANDS ON LAB — dépliants ===== */
 .project-details {
   width: 100%;
+  display: block;
 }
 
 .project-summary {
   list-style: none;
   cursor: pointer;
-  display: flex;
-  align-items: flex-start;
-  gap: 20px;
+  display: block; /* Passage en block pour éviter l'alignement côte à côte */
   width: 100%;
 }
 
 /* Cache la flèche native */
-.project-summary::-webkit-details-marker {
+.project-summary::-webkit-details-marker,
+.project-summary::marker {
   display: none;
 }
 
-/* ⬇️ CONTENU DÉPLIÉ : pleine largeur, sous le résumé */
+/* CONTENU DÉPLIÉ : pleine largeur */
 .project-full {
   width: 100%;
+  display: block;
   padding: 20px 0 10px 0;
   margin-top: 15px;
   border-top: 1px solid rgba(212, 175, 55, 0.2);
@@ -732,19 +733,11 @@ footer {
 .project-full p {
   margin-bottom: 12px;
   line-height: 1.7;
-  max-width: none; /* annule toute limite de largeur héritée */
+  max-width: 100%;
   width: 100%;
 }
 
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(-5px); }
   to { opacity: 1; transform: translateY(0); }
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .project-summary {
-    flex-direction: column;
-    gap: 10px;
-  }
 }
