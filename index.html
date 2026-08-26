@@ -2,14 +2,57 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="google-site-verification" content="ApVL4fl0kk_VryhIwA4MAAvwClf09X0MIs21Qp44j30" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-   <title>Moez L'Agha — Consultant SAP FICO & Formateur IT | MTC Computing</title>  
+  <meta name="google-site-verification" content="ApVL4fl0kk_VryhIwA4MAAvwClf09X0MIs21Qp44j30" />
+
+  <title>Moez L'Agha — Consultant SAP FICO & Formateur IT | MTC Computing</title>
   <meta name="description" content="Consultant SAP FICO & formateur IT — paramétrage FI-CO S/4HANA, Private Cloud & ECC, formations SAP. Paris / Île-de-France." />
+  <meta name="author" content="Moez L'Agha" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://www.mtc-computing.com/" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Moez L'Agha — Consultant SAP FICO & Formateur IT | MTC Computing" />
+  <meta property="og:description" content="Consultant SAP FICO & formateur IT — paramétrage FI-CO S/4HANA, Private Cloud & ECC, formations SAP." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.mtc-computing.com/" />
+  <meta property="og:image" content="https://www.mtc-computing.com/image/moez-lagha-consultant-sap-fico.webp" />
+
+  <!-- Données structurées Schema.org -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Moez L'Agha",
+    "jobTitle": "Consultant SAP FICO & Formateur IT",
+    "url": "https://www.mtc-computing.com",
+    "image": "https://www.mtc-computing.com/image/moez-lagha-consultant-sap-fico.webp",
+    "sameAs": [
+      "https://www.linkedin.com/in/moez-l-agha-b020032b5",
+      "https://github.com/Moez-FinTech",
+      "https://www.youtube.com/@MTC-Computing"
+    ],
+    "worksFor": {
+      "@type": "Organization",
+      "name": "MTC Computing",
+      "url": "https://www.mtc-computing.com",
+      "identifier": "SIREN 820 341 548"
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Paris",
+      "addressRegion": "Île-de-France",
+      "addressCountry": "FR"
+    },
+    "knowsAbout": ["SAP FICO", "S/4HANA", "SAP ECC", "Linux", "VMware", "Azure", "Microsoft 365"]
+  }
+  </script>
+
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
+<!-- ===== NAVIGATION ===== -->
 <nav>
   <div class="nav-inner">
     <a href="index.html" class="nav-logo">
@@ -17,7 +60,6 @@
     </a>
     <ul class="nav-links">
       <li><a href="#about" class="active">Profil</a></li>
-      
       <li><a href="#experience">Hands On Lab</a></li>
       <li><a href="#content">YouTube</a></li>
       <li><a href="articles.html">Articles</a></li>
@@ -26,41 +68,51 @@
     </ul>
   </div>
 </nav>
-<section class="hero" style="padding: 80px 0 60px;">
+
+<!-- ===== HERO (UN SEUL, NON IMBRIQUÉ) ===== -->
+<section class="hero" id="accueil">
   <div class="container">
     <div class="hero-grid">
-                  <div class="hero-left">
-                    <section class="hero" style="padding: 80px 0 60px;">
-  <div class="container">
-      <img src="image/moez-lagha-consultant-sap-fico.webp" 
-         alt="Moez L'Agha, consultant SAP FICO et formateur IT" 
-         style="width:200px;height:200px;border-radius:40%;object-fit:cover;border:3px solid #d4af37;box-shadow:0 8px 25px rgba(0,0,0,0.3);margin:0 auto 25px auto;display:block;" 
-         onerror="this.style.display='none'" />
-   
-    <div class="hero-eyebrow fade-up fade-up-d1">Consultant SAP FICO · Formateur IT indépendant</div>
-    <h1 class="hero-title fade-up fade-up-d2" style="font-size: 2.1rem; margin: 15px 0 15px;">
-      SAP FICO<br/>
-      <em>Paramétrage & Formations Pratiques</em>
-    </h1>
-    <p class="hero-subtitle fade-up fade-up-d3">
-      Disponible immédiatement pour missions paramétrage FI-CO / AMOA S/4HANA.<br/>
-      Formations IT concrètes (Linux, Hyperviseur, Ms365 et SAP) en présentiel ou à distance.<br/>
-      Paris / Île-de-France ou déplacement.
-    </p>
-    
- 
+
+      <div class="hero-left">
+
+        <!-- PHOTO DE PROFIL — ronde, centrée, dorée -->
+        <img src="image/moez-lagha-consultant-sap-fico.webp" 
+             alt="Moez L'Agha, consultant SAP FICO et formateur IT" 
+             style="width:200px;height:200px;border-radius:50%;object-fit:cover;border:3px solid #d4af37;box-shadow:0 8px 25px rgba(0,0,0,0.3);margin:0 auto 25px auto;display:block;" 
+             loading="eager"
+             onerror="this.style.display='none'" />
+
+        <div class="hero-eyebrow fade-up fade-up-d1">Consultant SAP FICO · Formateur IT indépendant</div>
+
+        <h1 class="hero-title fade-up fade-up-d2" style="font-size: 2.1rem; margin: 15px 0 15px;">
+          SAP FICO<br/>
+          <em>Paramétrage & Formations Pratiques</em>
+        </h1>
+
+        <p class="hero-subtitle fade-up fade-up-d3">
+          Disponible immédiatement pour missions paramétrage FI-CO / AMOA S/4HANA.<br/>
+          Formations IT concrètes (Linux, Hyperviseur, Ms365 et SAP) en présentiel ou à distance.<br/>
+          Paris / Île-de-France ou déplacement.
+        </p>
+
+      </div>
+
+      <!-- Si vous voulez un élément visuel à droite sur desktop, gardez hero-right vide ou ajoutez un élément décoratif -->
+      <div class="hero-right" style="display:flex;align-items:center;justify-content:center;">
+        <!-- Espace réservé ou élément décoratif si besoin -->
+      </div>
 
     </div>
   </div>
 </section>
 
+<!-- ===== À PROPOS ===== -->
 <section id="about">
   <div class="container">
     <div class="about-grid">
       <div class="about-left">
-        <div class="about-photo-placeholder">
-          <img src="assets/photo.jpg" alt="Moez L'Agha" style="width:100%;max-width:260px;" />
-        </div>
+        <!-- PAS DE DEUXIÈME PHOTO ICI — elle est déjà dans le hero -->
         <div class="about-name">Moez L'Agha</div>
         <div class="about-role">Consultant SAP FICO · Formateur IT</div>
         <ul class="about-meta">
@@ -95,7 +147,7 @@
   </div>
 </section>
 
-
+<!-- ===== COMPÉTENCES ===== -->
 <section id="competences" class="skills-section">
   <div class="container">
     <p class="section-label">Compétences SAP</p>
@@ -179,7 +231,7 @@
   </div>
 </section>
 
-
+<!-- ===== HANDS ON LAB ===== -->
 <section id="experience">
   <div class="container">
     <p class="section-label">Hands On Lab</p>
@@ -243,6 +295,7 @@
   </div>
 </section>
 
+<!-- ===== YOUTUBE ===== -->
 <section id="content" class="youtube-section">
   <div class="container">
     <div class="youtube-inner">
@@ -285,6 +338,7 @@
   </div>
 </section>
 
+<!-- ===== CONTACT ===== -->
 <section class="contact-strip">
   <div class="container">
     <p class="section-label">Disponible</p>
@@ -302,6 +356,7 @@
   </div>
 </section>
 
+<!-- ===== FOOTER ===== -->
 <footer>
   <div class="footer-inner">
     <a href="index.html" class="footer-logo">MTC<span>.</span>Computing</a>
